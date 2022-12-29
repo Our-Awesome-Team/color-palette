@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import styles from './Signup.module.css'
 import { useNavigate } from 'react-router-dom'
-import Spinner from '../../components/Spinner/Spinner'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { signup, reset } from '../../store/auth/authSlice'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 const Signup = () => {
     const navigate = useNavigate()

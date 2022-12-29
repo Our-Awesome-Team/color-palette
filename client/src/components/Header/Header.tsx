@@ -22,31 +22,46 @@ const Header = () => {
 		};
 	}, []);
 
-	// const navigate = useNavigate();
-	// const dispatch = useAppDispatch();
-	// const { user } = useAppSelector(state => state.auth);
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const { user } = useAppSelector(state => state.auth);
 
-	// const onLogout = () => {
-	// 	dispatch(logout());
-	// 	dispatch(reset());
-	// 	navigate('/');
-	// };
+	const onLogout = () => {
+		dispatch(logout());
+		dispatch(reset());
+		navigate('/');
+	};
 
 	return (
 		<header
-			className={`${styles.header} ${
-				scrollPosition > 0 ? styles.scrolled : ''
-			}`}
+			className={`${styles.header} ${scrollPosition > 0 ? styles.scrolled : ''
+				}`}
 		>
 			<div className={styles._container}>
 				<div className={styles.logo}>
 					<a href="/">Color Pallete</a>
 				</div>
 				<Search />
-				<div className={styles.btns}>
-					<Button name="Sign In" />
-					<Button name="Sign Up" />
-				</div>
+				{user ? (
+					<div className={styles.btns}>
+						<Link to='favorites'>
+							<Button name='Favorites' />
+						</Link>
+						<span onClick={onLogout}>
+							<Button name='Logout' />
+						</span>
+					</div>
+				) : (
+					<div className={styles.btns}>
+						<Link to='/signin'>
+							<Button name="Sign In" />
+						</Link>
+						<Link to='/signup'>
+							<Button name="Sign Up" />
+						</Link>
+					</div>
+				)}
+
 			</div>
 		</header>
 

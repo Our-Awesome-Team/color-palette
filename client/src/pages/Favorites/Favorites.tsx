@@ -7,32 +7,32 @@ import { reset } from '../../store/auth/authSlice'
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 const Favorites = () => {
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
 
-    const { user } = useAppSelector((state) => state.auth)
-    if (!user) {
-        navigate('/signin')
-    }
+	const { user } = useAppSelector((state) => state.auth)
+	if (!user) {
+		navigate('/signin')
+	}
 
-    const { favoriteColors, loading, error } = useAppSelector(
-        (state) => state.favoriteColors
-    )
-    useEffect(() => {
-        if (error) {
-            console.log(error)
-        }
+	const { favoriteColors, loading, error } = useAppSelector(
+		(state) => state.favoriteColors
+	)
+	useEffect(() => {
+		if (error) {
+			console.log(error)
+		}
 
-        dispatch(getFavoriteColors())
+		dispatch(getFavoriteColors())
 
-        return () => {
-            dispatch(reset())
-        }
-    }, [user, navigate, error, dispatch])
+		return () => {
+			dispatch(reset())
+		}
+	}, [user, navigate, error, dispatch])
 
 	return (
 		<>
-			{isLoading ? (
+			{loading ? (
 				<Spinner />
 			) : (
 				<div className={styles.container}>

@@ -1,11 +1,10 @@
 import { FC, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { saveFavoriteColor } from '../../services/favoriteColor/favoriteColorSlice';
-import { FavoriteColor } from '../../services/favoriteColor/favoriteColorTypes';
 import Select from '../UI/Select/Select';
 import Spinner from '../UI/Spinner/Spinner';
-
 import styles from './Generated.module.scss';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { Color } from '../../store/favorites/favoritesTypes';
+import { addFavoriteColor } from '../../store/favorites/favoritesSlice';
 
 const Generated: FC = () => {
 	const dispatch = useAppDispatch();
@@ -14,8 +13,8 @@ const Generated: FC = () => {
 	// const [colors, setColors] = useState<FavoriteColor[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 
-	const saveColor = (color: FavoriteColor) => {
-		dispatch(saveFavoriteColor(color));
+	const saveColor = (color: Color) => {
+		dispatch(addFavoriteColor(color));
 	};
 
 	return (

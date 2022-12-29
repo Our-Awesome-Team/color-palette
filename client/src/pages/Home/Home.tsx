@@ -10,8 +10,8 @@ import BrowseColors from '../../components/BrowseColors/BrowseColors';
 import styles from './Home.module.scss';
 
 const Home = () => {
-	// const dispatch = useAppDispatch();
-	// const { user } = useAppSelector(state => state.auth);
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector(state => state.auth);
 
     const [colors, setColors] = useState<Color[]>([])
     const [loading, setLoading] = useState<boolean>(true)
@@ -28,22 +28,18 @@ const Home = () => {
         fetchColors()
     }, [])
 
-    const saveColor = (color: Color) => {
+    const addColor = (color: Color) => {
         dispatch(addFavoriteColor(color))
     }
 
-	// const saveColor = (color: FavoriteColor) => {
-	// 	dispatch(saveFavoriteColor(color));
-	// };
-
-	return (
-		<section className={styles.home}>
-			<div className="__container">
-				<Generated />
-				<BrowseColors />
-			</div>
-		</section>
-	);
+    return (
+        <section className={styles.home}>
+            <div className="__container">
+                <Generated />
+                <BrowseColors />
+            </div>
+        </section>
+    );
 };
 
 export default Home;

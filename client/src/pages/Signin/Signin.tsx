@@ -17,17 +17,17 @@ const Signin = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	    const { user, loading, error, success } = useAppSelector(
-        (state) => state.auth
-    )
+	const { user, loading, error, success } = useAppSelector(
+		(state) => state.auth
+	)
 
-    useEffect(() => {
-        if (success || user) {
-            navigate('/')
-        }
+	useEffect(() => {
+		if (success || user) {
+			navigate('/')
+		}
 
-        dispatch(reset())
-    }, [user, error, success, navigate, dispatch])
+		dispatch(reset())
+	}, [user, error, success, navigate, dispatch])
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setFormData(prevState => ({
@@ -36,25 +36,25 @@ const Signin = () => {
 		}));
 	};
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
-        e.preventDefault()
-        const userData = {
-            email,
-            password,
-        }
-        dispatch(signin(userData))
-    }
+	const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
+		e.preventDefault()
+		const userData = {
+			email,
+			password,
+		}
+		dispatch(signin(userData))
+	}
 
-    return (
-        <>
-            {loading ? <Spinner /> :
-                <div className={styles.container}>
-                    <section className={styles.heading}>
-                        <h1>
-                            Login
-                        </h1>
-                        <p>Login and start searching colors</p>
-                    </section>
+	return (
+		<>
+			{loading ? <Spinner /> :
+				<div className={styles.container}>
+					<section className={styles.heading}>
+						<h1>
+							Login
+						</h1>
+						<p>Login and start searching colors</p>
+					</section>
 
 					<section className={styles.form}>
 						<form onSubmit={onSubmit}>
@@ -92,7 +92,7 @@ const Signin = () => {
 						</form>
 					</section>
 				</div>
-			)}
+			}
 		</>
 	);
 };
