@@ -1,36 +1,34 @@
 import { useEffect } from 'react';
 import styles from './Favorites.module.css';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { useNavigate } from 'react-router';
-import {
-	getFavoriteColors,
-	reset,
-} from '../../services/favoriteColor/favoriteColorSlice';
+import { getFavoriteColors } from '../../store/favorites/favoritesSlice'
+import { reset } from '../../store/auth/authSlice'
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 const Favorites = () => {
-	const navigate = useNavigate();
-	const dispatch = useAppDispatch();
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
-	const { user } = useAppSelector(state => state.auth);
-	if (!user) {
-		navigate('/signin');
-	}
+    const { user } = useAppSelector((state) => state.auth)
+    if (!user) {
+        navigate('/signin')
+    }
 
-	const { favoriteColors, isLoading, isError, message } = useAppSelector(
-		state => state.favoriteColors
-	);
-	useEffect(() => {
-		if (isError) {
-			console.log(message);
-		}
+    const { favoriteColors, loading, error } = useAppSelector(
+        (state) => state.favoriteColors
+    )
+    useEffect(() => {
+        if (error) {
+            console.log(error)
+        }
 
-		dispatch(getFavoriteColors());
+        dispatch(getFavoriteColors())
 
-		return () => {
-			dispatch(reset());
-		};
-	}, [user, navigate, isError, message, dispatch]);
+        return () => {
+            dispatch(reset())
+        }
+    }, [user, navigate, error, dispatch])
 
 	return (
 		<>

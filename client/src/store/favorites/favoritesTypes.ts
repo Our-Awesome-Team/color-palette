@@ -3,8 +3,13 @@ export type Tag = {
   name: string;
 };
 
-export type FavoriteColor = {
+export type Color = {
   id: number;
   hex: string;
   tags: Tag[];
+};
+
+export type ColorScheme = {
+  id: number;
+  // ...
 };

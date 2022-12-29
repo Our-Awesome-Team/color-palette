@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { logout, reset } from '../../services/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { logout, reset } from '../../store/auth/authSlice'
 import Search from '../UI/Search/Search';
 import Button from '../UI/Button/Button';
 import Select from '../UI/Select/Select';

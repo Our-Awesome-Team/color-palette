@@ -1,13 +1,10 @@
 import axios from 'axios';
-import { FavoriteColor } from './favoriteColorTypes';
+import { Color } from '../store/favorites/favoritesTypes';
 
 const API_URL = 'http://localhost:5000/api/favoriteColors/';
 
 // Save new favorite color
-const saveFavoriteColor = async (
-  favoriteColorData: FavoriteColor,
-  token: string
-) => {
+const saveFavoriteColor = async (favoriteColorData: Color, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -32,7 +29,7 @@ const getFavoriteColors = async (token: string) => {
 };
 
 // Delete user favorite color
-const deleteFavoriteColor = async (favoriteColorId: string, token: string) => {
+const deleteFavoriteColor = async (favoriteColorId: number, token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
