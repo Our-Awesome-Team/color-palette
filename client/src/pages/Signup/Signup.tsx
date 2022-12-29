@@ -1,12 +1,16 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import styles from './Signup.module.css'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { toast } from 'react-toastify'
-import { register, reset } from '../../services/auth/authSlice'
 import Spinner from '../../components/Spinner/Spinner'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { signup, reset } from '../../store/auth/authSlice'
 
 const Signup = () => {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const { user, loading, error, success } = useAppSelector(
+        (state) => state.auth
+    )
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -16,24 +20,12 @@ const Signup = () => {
 
     const { name, email, password, confirmPassword } = formData
 
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-
-    const { user, isLoading, isError, isSuccess, message } = useAppSelector(
-        (state) => state.auth
-    )
-
     useEffect(() => {
-        if (isError) {
-            toast.error(message)
-        }
-
-        if (isSuccess || user) {
+        if (success || user) {
             navigate('/')
         }
-
         dispatch(reset())
-    }, [user, isError, isSuccess, message, navigate, dispatch])
+    }, [user, error, success, navigate, dispatch])
 
     const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setFormData((prevState) => ({
@@ -44,24 +36,23 @@ const Signup = () => {
 
     const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault()
-
         if (password !== confirmPassword) {
-            toast.error('Passwords do not match')
+            // Заглушка для ошибки
+            return
         } else {
             const userData = {
                 name,
                 email,
                 password,
             }
-
-            dispatch(register(userData))
+            dispatch(signup(userData))
         }
     }
 
 
     return (
         <>
-            {isLoading ? <Spinner /> :
+            {loading ? <Spinner /> :
                 <div className={styles.container}>
                     <section className={styles.heading}>
                         <h1>
@@ -69,7 +60,6 @@ const Signup = () => {
                         </h1>
                         <p>Please create an account</p>
                     </section>
-
                     <section className={styles.form}>
                         <form onSubmit={onSubmit}>
                             <div className={styles['form-group']}>
@@ -126,7 +116,6 @@ const Signup = () => {
                 </div>
             }
         </>
-
     )
 }
 

@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import styles from './Favorites.module.css'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { useNavigate } from 'react-router'
-import { getFavoriteColors, reset } from '../../services/favoriteColor/favoriteColorSlice'
 import Spinner from '../../components/Spinner/Spinner'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { reset } from '../../store/auth/authSlice'
+import { getFavoriteColors } from '../../store/favorites/favoritesSlice'
 
 const Favorites = () => {
     const navigate = useNavigate()
@@ -15,12 +16,12 @@ const Favorites = () => {
     }
 
 
-    const { favoriteColors, isLoading, isError, message } = useAppSelector(
+    const { favoriteColors, loading, error } = useAppSelector(
         (state) => state.favoriteColors
     )
     useEffect(() => {
-        if (isError) {
-            console.log(message)
+        if (error) {
+            console.log(error)
         }
 
         dispatch(getFavoriteColors())
@@ -28,11 +29,11 @@ const Favorites = () => {
         return () => {
             dispatch(reset())
         }
-    }, [user, navigate, isError, message, dispatch])
+    }, [user, navigate, error, dispatch])
 
     return (
         <>
-            {isLoading ? <Spinner /> :
+            {loading ? <Spinner /> :
                 <div className={styles.container}>
                     <section className={styles.heading}>
                         <h1>Welcome {user && user.name}</h1>

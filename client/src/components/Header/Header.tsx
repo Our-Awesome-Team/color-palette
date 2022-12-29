@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './Header.module.css'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { logout, reset } from '../../services/auth/authSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { logout, reset } from '../../store/auth/authSlice'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -49,7 +49,8 @@ const Header = () => {
                         </>
                     )}
                 </ul>
-            </header></div>
+            </header>
+        </div>
     )
 }
 
