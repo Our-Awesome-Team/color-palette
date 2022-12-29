@@ -1,0 +1,21 @@
+.browseColors {
+	padding: 0 20px;
+	padding-bottom: 50px;
+	> h2 {
+		font-size: 35px;
+		font-weight: 500;
+		margin-bottom: 25px;
+		line-height: 1.2;
+	}
+}
+
+.allColors {
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	gap:50px 20px ;
+	> div {
+		height: 170px;
+		background-color: #acc0d9;
+		border-radius: 10px;
+	}
+}

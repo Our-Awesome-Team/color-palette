@@ -1,0 +1,77 @@
+@import '../../assets//styles/main.scss';
+
+.header {
+	position: fixed;
+	width: 100%;
+	z-index: 50;
+	padding: 10px 0 10px 0;
+}
+
+._container {
+	display: flex;
+	align-items: center;
+	height: 110px;
+	min-height: 110px;
+	gap: 110px;
+	> input {
+		display: block;
+		flex: 1 1 auto;
+		min-height: 100%;
+		background-color: #f3f3f3;
+		border-radius: 10px;
+		padding: 0 30px;
+		font-size: 35px;
+		font-weight: 500;
+		border: 1px solid #dadada;
+		margin-right: 70px;
+		box-shadow: 0 100px 80px rgba($color: #000000, $alpha: 0.03),
+			0 64px 46px rgba($color: #000000, $alpha: 0.02),
+			0 38px 25px rgba($color: #000000, $alpha: 0.02),
+			0 20px 13px rgba($color: #000000, $alpha: 0.02),
+			0 2px 3px rgba($color: #000000, $alpha: 0.01);
+		&::placeholder {
+			font-weight: 400;
+		}
+		&:focus {
+			box-shadow: 0px 4px 4px rgba($color: #000000, $alpha: 0.25);
+		}
+		outline: none;
+	}
+}
+
+.logo {
+	flex: 0 0 auto;
+	font-size: 44px;
+	font-weight: 800;
+	line-height: 1.2;
+
+	> a {
+		box-shadow: inset 0 0 0 0 #ffffff;
+		color: #000000;
+		padding: 0 0.25rem;
+		margin: 0 -0.25rem;
+		transition: color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+		@media (any-hover: hover) {
+			&:hover {
+				color: #fff;
+				box-shadow: inset 295px 0 0 0 darken($colorHover, 15%);
+			}
+		}
+	}
+}
+
+.btns {
+	display: flex;
+	gap: 20px;
+}
+
+.scrolled {
+	transition: all 0.5s;
+	background-color: rgba($color: #000000, $alpha: 0.5);
+	.logo {
+		& > a {
+			box-shadow: inset 0 0 0 0 #000000;
+			color: #ffffff;
+		}
+	}
+}

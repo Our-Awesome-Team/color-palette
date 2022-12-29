@@ -1,56 +1,84 @@
-import { Link, useNavigate } from 'react-router-dom'
-import styles from './Header.module.css'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { logout, reset } from '../../services/auth/authSlice'
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './Header.module.scss';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { logout, reset } from '../../services/auth/authSlice';
+import Search from '../UI/Search/Search';
+import Button from '../UI/Button/Button';
+import Select from '../UI/Select/Select';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const { user } = useAppSelector((state) => state.auth)
+	const [scrollPosition, setScrollPosition] = useState(0);
+	const handleScroll = () => {
+		const position = window.pageYOffset;
+		setScrollPosition(position);
+	};
 
-    const onLogout = () => {
-        dispatch(logout())
-        dispatch(reset())
-        navigate('/')
-    }
-    return (
-        <div className={styles.container}>
-            <header className={styles.header}>
-                <div className={styles.logo}>
-                    <Link to='/'>Color Pallete</Link>
-                </div>
-                <ul>
-                    {user ? (
-                        <>
-                            <li>
-                                <Link to='favorites'>
-                                    Favorites
-                                </Link>
-                            </li>
-                            <li>
-                                <button className={styles.btn} onClick={onLogout}>
-                                    Logout
-                                </button>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li>
-                                <Link to='/signin'>
-                                    Signin
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to='/signup'>
-                                    Signup
-                                </Link>
-                            </li>
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
 
-                        </>
-                    )}
-                </ul>
-            </header></div>
-    )
-}
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
-export default Header
+	// const navigate = useNavigate();
+	// const dispatch = useAppDispatch();
+	// const { user } = useAppSelector(state => state.auth);
+
+	// const onLogout = () => {
+	// 	dispatch(logout());
+	// 	dispatch(reset());
+	// 	navigate('/');
+	// };
+
+	return (
+		<header
+			className={`${styles.header} ${
+				scrollPosition > 0 ? styles.scrolled : ''
+			}`}
+		>
+			<div className={styles._container}>
+				<div className={styles.logo}>
+					<a href="/">Color Pallete</a>
+				</div>
+				<Search />
+				<div className={styles.btns}>
+					<Button name="Sign In" />
+					<Button name="Sign Up" />
+				</div>
+			</div>
+		</header>
+
+		/* <header className={styles.header}>
+				<div className={styles.logo}>
+					<Link to="/">Color Pallete</Link>
+				</div>
+				<ul>
+					{user ? (
+						<>
+							<li>
+								<Link to="favorites">Favorites</Link>
+							</li>
+							<li>
+								<button className={styles.btn} onClick={onLogout}>
+									Logout
+								</button>
+							</li>
+						</>
+					) : (
+						<>
+							<li>
+								<Link to="/signin">Signin</Link>
+							</li>
+							<li>
+								<Link to="/signup">Signup</Link>
+							</li>
+						</>
+					)}
+				</ul>
+			</header> */
+	);
+};
+
+export default Header;
