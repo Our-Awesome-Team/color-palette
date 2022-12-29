@@ -22,7 +22,6 @@ function App() {
         <Route path='/user' element={<User />} />
         <Route path='/history' element={<History />} />
       </Routes>
-      <ToastContainer />
     </Router>
   );
 }

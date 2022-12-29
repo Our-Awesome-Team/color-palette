@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import styles from './Home.module.css'
 import axios from 'axios'
-import { saveFavoriteColor } from '../../services/favoriteColor/favoriteColorSlice'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { FavoriteColor } from '../../services/favoriteColor/favoriteColorTypes'
 import Spinner from '../../components/Spinner/Spinner'
+import { Color } from '../../store/favorites/favoritesTypes'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { addFavoriteColor } from '../../store/favorites/favoritesSlice'
 
 
 const Home = () => {
     const dispatch = useAppDispatch()
     const { user } = useAppSelector((state) => state.auth)
 
-    const [colors, setColors] = useState<FavoriteColor[]>([])
+    const [colors, setColors] = useState<Color[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
         const fetchColors = async () => {
@@ -26,8 +26,8 @@ const Home = () => {
         fetchColors()
     }, [])
 
-    const saveColor = (color: FavoriteColor) => {
-        dispatch(saveFavoriteColor(color))
+    const saveColor = (color: Color) => {
+        dispatch(addFavoriteColor(color))
     }
 
     return (

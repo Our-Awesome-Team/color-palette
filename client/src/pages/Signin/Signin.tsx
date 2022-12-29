@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './Signin.module.css'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { login, reset } from '../../services/auth/authSlice'
 import Spinner from '../../components/Spinner/Spinner'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { reset, signin } from '../../store/auth/authSlice'
 
 const Signin = () => {
     const [formData, setFormData] = useState({
@@ -17,21 +17,17 @@ const Signin = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    const { user, isLoading, isError, isSuccess, message } = useAppSelector(
+    const { user, loading, error, success } = useAppSelector(
         (state) => state.auth
     )
 
     useEffect(() => {
-        if (isError) {
-            toast.error(message)
-        }
-
-        if (isSuccess || user) {
+        if (success || user) {
             navigate('/')
         }
 
         dispatch(reset())
-    }, [user, isError, isSuccess, message, navigate, dispatch])
+    }, [user, error, success, navigate, dispatch])
 
     const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setFormData((prevState) => ({
@@ -46,13 +42,12 @@ const Signin = () => {
             email,
             password,
         }
-
-        dispatch(login(userData))
+        dispatch(signin(userData))
     }
 
     return (
         <>
-            {isLoading ? <Spinner /> :
+            {loading ? <Spinner /> :
                 <div className={styles.container}>
                     <section className={styles.heading}>
                         <h1>
@@ -99,3 +94,4 @@ const Signin = () => {
 }
 
 export default Signin
+
