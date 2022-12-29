@@ -2,22 +2,22 @@ import { useNavigate } from 'react-router-dom'
 import styles from './Signin.module.css'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import Spinner from '../../components/Spinner/Spinner'
+import Spinner from '../../components/UI/Spinner/Spinner';
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { reset, signin } from '../../store/auth/authSlice'
 
 const Signin = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    })
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+	});
 
-    const { email, password } = formData
+	const { email, password } = formData;
 
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
-    const { user, loading, error, success } = useAppSelector(
+	    const { user, loading, error, success } = useAppSelector(
         (state) => state.auth
     )
 
@@ -29,12 +29,12 @@ const Signin = () => {
         dispatch(reset())
     }, [user, error, success, navigate, dispatch])
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }))
-    }
+	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+		setFormData(prevState => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+		}));
+	};
 
     const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault()
@@ -56,42 +56,46 @@ const Signin = () => {
                         <p>Login and start searching colors</p>
                     </section>
 
-                    <section className={styles.form}>
-                        <form onSubmit={onSubmit}>
-                            <div className={styles['form-group']}>
-                                <input
-                                    type='email'
-                                    className={styles['form-control']}
-                                    id='email'
-                                    name='email'
-                                    value={email}
-                                    placeholder='Enter your email'
-                                    onChange={onChange}
-                                />
-                            </div>
-                            <div className={styles['form-group']}>
-                                <input
-                                    type='password'
-                                    className={styles['form-control']}
-                                    id='password'
-                                    name='password'
-                                    value={password}
-                                    placeholder='Enter password'
-                                    onChange={onChange}
-                                />
-                            </div>
+					<section className={styles.form}>
+						<form onSubmit={onSubmit}>
+							<div className={styles['form-group']}>
+								<input
+									type="email"
+									className={styles['form-control']}
+									id="email"
+									name="email"
+									value={email}
+									placeholder="Enter your email"
+									onChange={onChange}
+								/>
+							</div>
+							<div className={styles['form-group']}>
+								<input
+									type="password"
+									className={styles['form-control']}
+									id="password"
+									name="password"
+									value={password}
+									placeholder="Enter password"
+									onChange={onChange}
+								/>
+							</div>
 
-                            <div className={styles['form-group']}>
-                                <button type='submit' className={`${styles.btn} ${styles['btn-block']}`}>
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    </section>
-                </div>
-            }</>
-    )
-}
+							<div className={styles['form-group']}>
+								<button
+									type="submit"
+									className={`${styles.btn} ${styles['btn-block']}`}
+								>
+									Submit
+								</button>
+							</div>
+						</form>
+					</section>
+				</div>
+			)}
+		</>
+	);
+};
 
-export default Signin
+export default Signin;
 

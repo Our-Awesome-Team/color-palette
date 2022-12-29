@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react'
-import styles from './Home.module.css'
-import axios from 'axios'
-import Spinner from '../../components/Spinner/Spinner'
-import { Color } from '../../store/favorites/favoritesTypes'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { addFavoriteColor } from '../../store/favorites/favoritesSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { Color } from '../../store/favorites/favoritesTypes'
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Generated from '../../components/Generated/Generated';
+import BrowseColors from '../../components/BrowseColors/BrowseColors';
 
+import styles from './Home.module.scss';
 
 const Home = () => {
-    const dispatch = useAppDispatch()
-    const { user } = useAppSelector((state) => state.auth)
+	// const dispatch = useAppDispatch();
+	// const { user } = useAppSelector(state => state.auth);
 
     const [colors, setColors] = useState<Color[]>([])
     const [loading, setLoading] = useState<boolean>(true)
@@ -30,15 +32,18 @@ const Home = () => {
         dispatch(addFavoriteColor(color))
     }
 
-    return (
-        <div className={styles.container}>
-            {loading ? <Spinner /> :
-                colors.map(color => <div key={color.id}>{color.hex}
-                    {user && <button onClick={() => saveColor(color)}>+</button>}
-                </div>)
-            }
-        </div>
-    )
-}
+	// const saveColor = (color: FavoriteColor) => {
+	// 	dispatch(saveFavoriteColor(color));
+	// };
 
-export default Home
+	return (
+		<section className={styles.home}>
+			<div className="__container">
+				<Generated />
+				<BrowseColors />
+			</div>
+		</section>
+	);
+};
+
+export default Home;

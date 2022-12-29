@@ -1,0 +1,41 @@
+.generated {
+	background-color: #f9f9f9;
+	height: 275px;
+	border-radius: 20px;
+	border: 3px solid #f1f1f1;
+	display: flex;
+	margin-bottom: 45px;
+}
+
+.btn {
+	width: 100%;
+	background-color: #f1f1f1;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 7px 14px;
+}
+
+.colors {
+	flex: 1 1 auto;
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+	align-items: center;
+}
+
+.options {
+	flex: 0 0 190px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	align-items: center;
+	padding: 10px 15px;
+}
+
+.color {
+	width: 310px;
+	height: 90%;
+	background-color: #acc0d9;
+}
