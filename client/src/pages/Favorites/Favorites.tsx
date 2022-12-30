@@ -17,7 +17,7 @@ const Favorites = () => {
 	}
 
 	const { favoriteColors, loading, error } = useAppSelector(
-		state => state.favoriteColors
+		state => state.favorites
 	);
 	useEffect(() => {
 		if (error) {

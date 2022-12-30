@@ -7,7 +7,7 @@ const BrowseColors: FC<{ title: string }> = ({ title }) => {
 		<div className={styles.browseColors}>
 			<h2>{title}</h2>
 			<div className={styles.allColors}>
-				{[...Array(30)].map((item, index) => (
+				{[...Array(100)].map((item, index) => (
 					<div>
 						<div></div>
 						<span>Skyway #ACC0D9</span>
