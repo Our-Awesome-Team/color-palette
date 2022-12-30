@@ -1,15 +1,16 @@
 export type Tag = {
-  id: number;
+  id: number | string;
   name: string;
 };
 
 export type Color = {
-  id: number;
+  id: number | string;
   hex: string;
   tags: Tag[];
 };
 
-export type ColorScheme = {
-  id: number;
-  // ...
+export type Scheme = {
+  id: number | string;
+  colors: string[];
+  tags: Tag[];
 };
