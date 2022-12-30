@@ -2,13 +2,16 @@ import { FC } from 'react';
 
 import styles from './BrowseColors.module.scss';
 
-const BrowseColors: FC = () => {
+const BrowseColors: FC<{ title: string }> = ({ title }) => {
 	return (
 		<div className={styles.browseColors}>
-			<h2>Browse Colors</h2>
+			<h2>{title}</h2>
 			<div className={styles.allColors}>
 				{[...Array(30)].map((item, index) => (
-					<div></div>
+					<div>
+						<div></div>
+						<span>Skyway #ACC0D9</span>
+					</div>
 				))}
 			</div>
 		</div>

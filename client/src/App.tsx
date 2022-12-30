@@ -8,6 +8,7 @@ import History from './pages/History/History';
 import { Fragment } from 'react';
 import { ToastContainer } from 'react-toastify';
 import MainLayout from './components/Layout/MainLayout';
+import Search from './pages/Search/Search';
 
 function App() {
 	return (
@@ -20,11 +21,11 @@ function App() {
 					<Route path="/favorites" element={<Favorites />} />
 					<Route path="/user" element={<User />} />
 					<Route path="/history" element={<History />} />
+					<Route path="/search" element={<Search />} />
 				</Routes>
 			</MainLayout>
 		</>
 	);
-
 }
 
 export default App;

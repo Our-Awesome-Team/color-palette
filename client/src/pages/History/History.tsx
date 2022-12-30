@@ -1,9 +1,14 @@
-import styles from './History.module.css'
+import Suggestion from '../../components/Suggestion/Suggestion';
+import styles from './History.module.scss';
 
 const History = () => {
-    return (
-        <div className={styles.container}>History</div>
-    )
-}
+	return (
+		<section className={styles.history}>
+			<div className="__container">
+				<Suggestion title="Some History Tag" />
+			</div>
+		</section>
+	);
+};
 
-export default History
+export default History;

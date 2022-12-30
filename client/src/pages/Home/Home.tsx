@@ -36,7 +36,7 @@ const Home = () => {
         <section className={styles.home}>
             <div className="__container">
                 <Generated />
-                <BrowseColors />
+                <BrowseColors title='Browse color' />
             </div>
         </section>
     );
