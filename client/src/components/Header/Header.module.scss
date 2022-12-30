@@ -12,13 +12,13 @@
 ._container {
 	display: flex;
 	align-items: center;
-	height: 110px;
+	height: 100px;
 	justify-content: space-between;
-	min-height: 110px;
-	gap: 110px;
+	min-height: 80px;
+	gap: 30px;
 	input {
 		display: block;
-		flex: 1 1 auto;
+		flex: 0 0 30%;
 		min-height: 100%;
 		background-color: #f3f3f3;
 		border-radius: 10px;
@@ -26,7 +26,6 @@
 		font-size: 35px;
 		font-weight: 500;
 		border: 1px solid #dadada;
-		margin-right: 70px;
 		box-shadow: 0 100px 80px rgba($color: #000000, $alpha: 0.03),
 			0 64px 46px rgba($color: #000000, $alpha: 0.02),
 			0 38px 25px rgba($color: #000000, $alpha: 0.02),
@@ -44,38 +43,14 @@
 
 .logo {
 	flex: 0 0 auto;
-	font-size: 44px;
+	font-size: 35px;
 	font-weight: 800;
 	line-height: 1.2;
-
-	> a {
-		box-shadow: inset 0 0 0 0 #ffffff;
-		color: #000000;
-		padding: 0 0.25rem;
-		margin: 0 -0.25rem;
-		transition: color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
-		@media (any-hover: hover) {
-			&:hover {
-				color: #fff;
-				box-shadow: inset 295px 0 0 0 darken($colorHover, 15%);
-			}
-		}
-	}
 }
 
 .btns {
 	display: flex;
-	gap: 30px;
+	gap: 20px;
 	align-items: center;
-}
-
-.scrolled {
-	transition: all 0.5s;
-	background-color: rgba($color: #000000, $alpha: 0.5);
-	.logo {
-		& > a {
-			box-shadow: inset 0 0 0 0 #000000;
-			color: #ffffff;
-		}
-	}
+	flex: 1 1 auto;
 }
