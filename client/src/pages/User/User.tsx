@@ -3,12 +3,18 @@ import Button from '../../components/UI/Button/Button';
 import { logout, reset } from '../../store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import styles from './User.module.scss';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 
 const User = () => {
 	const dispatch = useAppDispatch()
-	const { user, loading, error } = useAppSelector(state => state.auth);
 	const navigate = useNavigate()
+	const { user, loading, error } = useAppSelector(state => state.auth);
+	useEffect(() => {
+		if (!user) {
+			navigate('/signin');
+		}
+	}, [user])
+
 
 	const onLogout = () => {
 		dispatch(logout());

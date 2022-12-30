@@ -12,9 +12,11 @@ const Favorites = () => {
 	const dispatch = useAppDispatch();
 
 	const { user } = useAppSelector(state => state.auth);
-	if (!user) {
-		navigate('/signin');
-	}
+	useEffect(() => {
+		if (!user) {
+			navigate('/signin');
+		}
+	}, [user])
 
 	const { favoriteColors, loading, error } = useAppSelector(
 		state => state.favorites
