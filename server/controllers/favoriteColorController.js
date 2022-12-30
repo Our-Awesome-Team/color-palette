@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 
 const FavoriteColor = require('../models/favoriteColorModel');
 
-// @desc    Get favoriteColors
+// @desc    Get favorite colors
 // @route   GET /api/favoriteColors
 // @access  Private
 const getFavoriteColors = asyncHandler(async (req, res) => {
@@ -11,7 +11,7 @@ const getFavoriteColors = asyncHandler(async (req, res) => {
   res.status(200).json(favoriteColors);
 });
 
-// @desc    Set favoriteColor
+// @desc    Set favorite color
 // @route   POST /api/favoriteColors
 // @access  Private
 const setFavoriteColor = asyncHandler(async (req, res) => {
@@ -30,7 +30,7 @@ const setFavoriteColor = asyncHandler(async (req, res) => {
   res.status(200).json(favoriteColor);
 });
 
-// @desc    Delete favoriteColor
+// @desc    Delete favorite color
 // @route   DELETE /api/favoriteColors/:id
 // @access  Private
 const deleteFavoriteColor = asyncHandler(async (req, res) => {

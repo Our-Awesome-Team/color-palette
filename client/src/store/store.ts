@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../store/auth/authSlice';
-import favoriteColorReducer from './favorites/favoritesSlice';
+import favoritesReducer from './favorites/favoritesSlice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    favoriteColors: favoriteColorReducer,
+    favorites: favoritesReducer,
   },
 });
 
