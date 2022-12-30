@@ -2,46 +2,18 @@
 
 .btn {
 	display: inline-block;
-	padding: 0.75rem 1.25rem;
-	border-radius: 10rem;
+	border-radius: 10px;
+	padding: 5px 10px;
 	color: #000;
 	text-transform: capitalize;
-	font-size: 35px;
+	font-size: 20px;
 	letter-spacing: 0.15rem;
 	transition: all 0.3s;
 	position: relative;
 	overflow: hidden;
 	font-weight: 500;
 	z-index: 1;
-	&:after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: #f3f3f3;
-		border-radius: 10rem;
-		z-index: -2;
-	}
-	&:before {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 0%;
-		height: 100%;
-		background-color: darken($colorHover, 15%);
-		transition: all 0.4s;
-		border-radius: 10rem;
-		z-index: -1;
-	}
-	&:hover {
-		color: #fff;
-		&:before {
-			width: 100%;
-		}
-	}
+	background-color: rgb(238, 238, 238);
 }
 
 .btnLogged {

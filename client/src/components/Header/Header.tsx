@@ -91,14 +91,14 @@ const Header = () => {
 							pathname === '/' ||
 							pathname === '/favorites' ||
 							pathname === '/history') && (
-								<div>
+								<>
 									<Link to="/signin">
 										<Button name="Sign In" />
 									</Link>
 									<Link to="/signup">
 										<Button name="Sign Up" />
 									</Link>
-								</div>
+								</>
 							)}
 					</div>
 				)}
