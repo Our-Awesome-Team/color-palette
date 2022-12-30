@@ -9,6 +9,7 @@ import MainLayout from './components/Layout/MainLayout';
 import Search from './pages/Search/Search';
 
 function App() {
+
 	return (
 		<>
 			<MainLayout>
