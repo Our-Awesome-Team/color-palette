@@ -19,13 +19,13 @@ const Signin = () => {
 
 	const { user, loading, error, success } = useAppSelector(state => state.auth);
 
-	// useEffect(() => {
-	// 	if (success || user) {
-	// 		navigate('/')
-	// 	}
+	useEffect(() => {
+		if (success || user) {
+			navigate('/')
+		}
 
-	// 	dispatch(reset())
-	// }, [user, error, success, navigate, dispatch])
+		dispatch(reset())
+	}, [user, error, success, navigate, dispatch])
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setFormData(prevState => ({

@@ -18,12 +18,12 @@ const Signup = () => {
 
 	const { name, email, password, confirmPassword } = formData;
 
-	// useEffect(() => {
-	//     if (success || user) {
-	//         navigate('/')
-	//     }
-	//     dispatch(reset())
-	// }, [user, error, success, navigate, dispatch])
+	useEffect(() => {
+		if (success || user) {
+			navigate('/')
+		}
+		dispatch(reset())
+	}, [user, error, success, navigate, dispatch])
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setFormData(prevState => ({

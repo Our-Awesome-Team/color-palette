@@ -36,16 +36,15 @@ const Header = () => {
 
 	return (
 		<header
-			className={`${styles.header} ${
-				scrollPosition > 0 ? styles.scrolled : ''
-			}`}
+			className={`${styles.header} ${scrollPosition > 0 ? styles.scrolled : ''
+				}`}
 		>
 			<div className={styles._container}>
 				<div className={styles.logo}>
 					<a href="/">Color Palette</a>
 				</div>
 				{pathname === '/' && <Search />}
-				{true ? (
+				{user ? (
 					<div className={styles.btns}>
 						<Link to="favorites">
 							<svg
@@ -81,22 +80,26 @@ const Header = () => {
 					</div>
 				) : (
 					<div className={styles.btns}>
-						{pathname === '/signin' && <Button name="Sign Up" />}
-						{pathname === '/signup' && <Button name="Sign In" />}
+						{pathname === '/signin' && <Link to="/signup">
+							<Button name="Sign Up" />
+						</Link>}
+						{pathname === '/signup' && <Link to="/signin">
+							<Button name="Sign In" />
+						</Link>}
 
 						{(pathname === '/search' ||
 							pathname === '/' ||
 							pathname === '/favorites' ||
 							pathname === '/history') && (
-							<>
-								<Link to="/signin">
-									<Button name="Sign In" />
-								</Link>
-								<Link to="/signup">
-									<Button name="Sign Up" />
-								</Link>
-							</>
-						)}
+								<div>
+									<Link to="/signin">
+										<Button name="Sign In" />
+									</Link>
+									<Link to="/signup">
+										<Button name="Sign Up" />
+									</Link>
+								</div>
+							)}
 					</div>
 				)}
 			</div>
