@@ -5,11 +5,14 @@ import Signup from './pages/Signup/Signup';
 import Favorites from './pages/Favorites/Favorites';
 import User from './pages/User/User';
 import History from './pages/History/History';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import MainLayout from './components/Layout/MainLayout';
+import Search from './pages/Search/Search';
 
 function App() {
+	
+	
 	return (
 		<>
 			<MainLayout>
@@ -20,6 +23,7 @@ function App() {
 					<Route path="/favorites" element={<Favorites />} />
 					<Route path="/user" element={<User />} />
 					<Route path="/history" element={<History />} />
+					<Route path="/search" element={<Search />}/>
 				</Routes>
 			</MainLayout>
 		</>
