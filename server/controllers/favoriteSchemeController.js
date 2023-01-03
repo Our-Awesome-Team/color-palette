@@ -34,7 +34,7 @@ const setFavoriteScheme = asyncHandler(async (req, res) => {
 // @route   DELETE /api/favoriteSchemes/:id
 // @access  Private
 const deleteFavoriteScheme = asyncHandler(async (req, res) => {
-  const favoriteScheme = await FavoriteScheme.findById(req.params.id);
+  const favoriteScheme = await FavoriteScheme.findOne({ id: req.params.id });
 
   if (!favoriteScheme) {
     res.status(400);

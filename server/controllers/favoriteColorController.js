@@ -20,6 +20,12 @@ const setFavoriteColor = asyncHandler(async (req, res) => {
     throw new Error('Please add a hex field');
   }
 
+  const favoriteColors = await FavoriteColor.find({ user: req.user.id });
+  if (favoriteColors.find((color) => color.id === req.body.id)) {
+    res.status(400);
+    throw new Error('Color already liked');
+  }
+
   const favoriteColor = await FavoriteColor.create({
     id: req.body.id,
     tags: req.body.tags,
@@ -34,7 +40,7 @@ const setFavoriteColor = asyncHandler(async (req, res) => {
 // @route   DELETE /api/favoriteColors/:id
 // @access  Private
 const deleteFavoriteColor = asyncHandler(async (req, res) => {
-  const favoriteColor = await FavoriteColor.findById(req.params.id);
+  const favoriteColor = await FavoriteColor.findOne({ id: req.params.id });
 
   if (!favoriteColor) {
     res.status(400);

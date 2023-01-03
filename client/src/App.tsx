@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import Signin from './pages/Signin/Signin';
-import Signup from './pages/Signup/Signup';
-import Favorites from './pages/Favorites/Favorites';
-import User from './pages/User/User';
-import History from './pages/History/History';
+import Signin from './pages/SigninPage/SigninPage';
+import Signup from './pages/SignupPage/SignupPage';
+import Favorites from './pages/FavoritesPage/FavoritesPage';
+import User from './pages/UserPage/UserPage';
+import History from './pages/HistoryPage/HistoryPage';
 import MainLayout from './components/Layout/MainLayout';
-import Search from './pages/Search/Search';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 function App() {
 
@@ -20,7 +20,7 @@ function App() {
 					<Route path="/favorites" element={<Favorites />} />
 					<Route path="/user" element={<User />} />
 					<Route path="/history" element={<History />} />
-					<Route path="/search" element={<Search />} />
+					<Route path="/search" element={<SearchPage />} />
 				</Routes>
 			</MainLayout>
 		</>

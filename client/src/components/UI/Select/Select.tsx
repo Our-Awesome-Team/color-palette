@@ -1,8 +1,10 @@
-import { FC } from 'react';
-
 import styles from './Select.module.scss';
 
-const Select: FC<{ name: string }> = ({ name }) => {
+type SelectProps = {
+	name: string
+}
+
+const Select = ({ name }: SelectProps) => {
 	return (
 		<>
 			<div className={styles.select}>

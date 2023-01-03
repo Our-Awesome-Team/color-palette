@@ -1,37 +1,42 @@
 .browseColors {
-	padding: 0 20px;
-	padding-bottom: 50px;
-	> h2 {
-		font-size: 35px;
-		font-weight: 500;
-		margin-bottom: 25px;
-		line-height: 1.2;
-	}
+  padding-bottom: 50px;
+
+  .titleBar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 19px;
+    gap: 15px;
+    padding: 0 20px;
+
+    > h2 {
+      font-size: 35px;
+      font-weight: 600;
+      height: 40px;
+    }
+
+    .icon {
+      font-size: 33px;
+      background-color: #e4e4e4;
+      border-radius: 100%;
+      padding: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #000000;
+        color: #ffffff;
+      }
+
+      &:active {
+        color: #dbdbdb;
+      }
+    }
+  }
 }
 
 .allColors {
-	display: grid;
-	grid-template-columns: repeat(8, 1fr);
-	gap: 50px 20px;
-	> div {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-
-		> div {
-			height: 120px;
-			width: 100%;
-			background-color: #acc0d9;
-			border-radius: 10px;
-		}
-		> span {
-			width: 100%;
-			text-align: center;
-			bottom: -20px;
-			font-size: 16px;
-			font-weight: 500;
-			color: #888888;
-			line-height: 1.2;
-		}
-	}
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  gap: 5px;
 }

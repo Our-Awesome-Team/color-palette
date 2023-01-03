@@ -1,15 +1,16 @@
-import { FC } from 'react';
-import cn from 'classnames';
 import styles from './Button.module.scss';
 
-const Button: FC<{ name: string; logged?: boolean }> = ({ name, logged }) => {
+type ButtonProps = {
+	title?: string
+	logged?: boolean
+}
+
+const Button = ({ title, logged }: ButtonProps) => {
 	return (
 		<button
-			className={cn(styles.btn, {
-				[styles.btnLogged]: logged,
-			})}
+			className={`${styles.btn} ${logged && styles.btnLogged}`}
 		>
-			{name}
+			{title}
 		</button>
 	);
 };

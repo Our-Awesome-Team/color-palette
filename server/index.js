@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/favoriteColors', require('./routes/favoriteColorRoutes'));
 app.use('/api/favoriteSchemes', require('./routes/favoriteSchemeRoutes'));
+app.use('/api/history', require('./routes/historyRoutes'));
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {

@@ -1,0 +1,46 @@
+.favorites {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 60px;
+  background-color: #f3f3f3;
+
+  h2 {
+    font-size: 25px;
+    font-weight: 600;
+    padding: 15px 20px;
+    max-width: 1170px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .schemes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: 1170px;
+    width: 100%;
+    gap: 25px;
+    padding: 0 20px;
+  }
+
+  .colors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    max-width: 1170px;
+    gap: 5px;
+
+    .colorCard {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 3px;
+      background-color: #ffffff;
+      padding: 5px;
+    }
+  }
+}

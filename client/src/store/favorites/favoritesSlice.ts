@@ -227,6 +227,7 @@ export const favoritesSlice = createSlice({
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;
+        state.success = false;
       });
   },
 });

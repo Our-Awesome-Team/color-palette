@@ -1,7 +1,7 @@
-import { FC, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import Header from '../Header/Header';
 
-const MainLayout: FC<PropsWithChildren> = ({ children }) => {
+const MainLayout = ({ children }: PropsWithChildren) => {
 	return (
 		<>
 			<Header />
