@@ -5,6 +5,8 @@ import styles from './UserPage.module.scss';
 import { useEffect } from 'react';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Seo from '../../utils/Seo/Seo';
+import AvatarUpload from '../../components/AvatarUpload';
+import SavedImage from '../../components/AvatarUpload/SavedImage/index.js';
 
 const User = () => {
 	const dispatch = useAppDispatch();
@@ -30,16 +32,15 @@ const User = () => {
 			/>
 			<section className={styles.user}>
 				{loading ? <Spinner /> :
-					<section className={styles.user}>
-						<div className={styles.main}>
-							<div className={styles.avatar}></div>
-							<div className={styles.name}>{user?.name}</div>
-							<div className={styles.email}>{user?.email}</div>
-							<div onClick={onLogout}>
-								<button>Log Out</button>
-							</div>
+					<div className={styles.main}>
+						{/* <div className={styles.avatar}></div> */}
+						<AvatarUpload />
+						<div className={styles.name}>{user?.name}</div>
+						<div className={styles.email}>{user?.email}</div>
+						<div onClick={onLogout}>
+							<button>Log Out</button>
 						</div>
-					</section>
+					</div>
 				}
 			</section>
 		</>
