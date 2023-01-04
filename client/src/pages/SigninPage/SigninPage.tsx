@@ -24,7 +24,7 @@ const Signin = () => {
 		}
 
 		dispatch(reset());
-	}, [success]);
+	}, [user, success]);
 
 	console.log(error)
 

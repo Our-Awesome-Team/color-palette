@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import logoImage from '../../assets/images/favicon.svg';
 
 const Seo = ({ title, description, image }: ISeo) => {
+
 	const { pathname } = useLocation();
 	const currentUrl = `https:/localhost:3000/${pathname}`;
 

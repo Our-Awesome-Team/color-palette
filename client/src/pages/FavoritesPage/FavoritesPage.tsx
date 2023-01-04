@@ -10,7 +10,10 @@ import { reset } from '../../store/auth/authSlice';
 import { IconHeartCircleMinus } from '../../assets/icons/Heart';
 import ColorCard from '../../components/ColorCard/ColorCard';
 import SchemeCard from '../../components/SchemeCard/SchemeCard';
+<<<<<<< HEAD
 import Spinner from '../../components/UI/Spinner/Spinner';
+=======
+>>>>>>> main
 import Seo from '../../utils/Seo/Seo';
 
 const Favorites = () => {
@@ -42,7 +45,6 @@ const Favorites = () => {
 	}, [user, navigate, error, dispatch]);
 
 	return (
-
 		<>
 			<Seo title="Favorite" description="Look at your favorites colors!" />
 			<div className={styles.favorites}>
