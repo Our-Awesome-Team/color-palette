@@ -12,7 +12,6 @@ import Seo from './utils/Seo/Seo';
 function App() {
 	return (
 		<>
-
 			<MainLayout>
 				<Routes>
 					<Route path="/" element={<Home />} />
