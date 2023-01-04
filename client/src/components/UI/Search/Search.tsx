@@ -1,4 +1,4 @@
-import { useRef, ChangeEvent, useEffect, useState, Fragment } from 'react';
+import { ChangeEvent, memo, useEffect, useState } from 'react';
 import axios from "axios";
 import styles from './Search.module.scss';
 import { Color, Scheme } from '../../../store/favorites/favoritesTypes';
@@ -6,10 +6,11 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import useDebounce from '../../../hooks/useDebounce';
 import { colourIsLight, hexToRgb } from '../../../utils/colorUtils';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { v4 as uuid } from 'uuid';
 import useLocalStorage from '../../../hooks/useLocalStorage';
-import { addHistoryItem, getHistory } from '../../../store/history/historySlice';
-import { Query } from '../../../store/history/historyTypes.js';
+import { getHistory } from '../../../store/history/historySlice';
+import { Query } from '../../../store/history/historyTypes';
+import HistoryItem from '../../HistoryItem/HistoryItem';
+import { useSearch } from '../../../hooks/useSearch';
 
 type SearchProps = {
 	fullSize?: boolean
@@ -47,23 +48,6 @@ const Search = ({ fullSize }: SearchProps) => {
 
 	const navigate = useNavigate()
 
-	const [storedValue, setValue] = useLocalStorage('history', [])
-
-	function goSearch(title: string | null) {
-		navigate(`/search/?query=${title}`)
-		const query = {
-			id: uuid(),
-			title: title ? title : '',
-			date: `${Date.now()}`
-		}
-		if (user) {
-			dispatch(addHistoryItem(query))
-		} else {
-			setValue([...storedValue, query])
-		}
-	}
-
-	// History
 	const { queries } = useAppSelector(
 		state => state.history
 	);
@@ -72,6 +56,20 @@ const Search = ({ fullSize }: SearchProps) => {
 		dispatch(getHistory())
 	}, [])
 
+	const [localHistory, setLocalHistory] = useLocalStorage('history', [])
+
+	const search = useSearch()
+
+	function openSuggestion() {
+		document.body.style.overflow = 'hidden'
+		setShowResults(true)
+	}
+
+	function closeSuggestion() {
+		document.body.style.overflow = 'auto'
+		setTimeout(() => setShowResults(false), 200)
+	}
+
 	return (
 		<div className={`${styles.search} ${fullSize ? styles.fullsize : ''}`}>
 			<input
@@ -79,9 +77,9 @@ const Search = ({ fullSize }: SearchProps) => {
 				placeholder="Search..."
 				value={inputValue}
 				onChange={changeInput}
-				onFocus={() => setShowResults(true)}
-				onBlur={() => { setTimeout(() => setShowResults(false), 200) }}
-				onKeyDown={(e) => e.key === 'Enter' && goSearch(searchParams.get('query'))}
+				onFocus={openSuggestion}
+				onBlur={closeSuggestion}
+				onKeyDown={(e) => e.key === 'Enter' && search(searchParams.get('query'))}
 			/>
 			{showResults &&
 				(inputValue ? <div className={styles.results}>
@@ -100,8 +98,6 @@ const Search = ({ fullSize }: SearchProps) => {
 								</div>
 							)
 							)}
-					</div>
-					<div className={styles.items}>
 						{schemesData &&
 							schemesData.filter(scheme => scheme.colors.length >= 5).slice(0, 5).map((scheme) => <div key={scheme.id} className={styles.scheme}>
 								{scheme.colors.map(color => (color &&
@@ -120,20 +116,20 @@ const Search = ({ fullSize }: SearchProps) => {
 							</div>
 							)}
 					</div>
-					<div onClick={() => goSearch(searchParams.get('query'))} className={styles['show-more']}>
-						Show more...
+					<div onClick={() => search(searchParams.get('query'))} className={styles['show-more']}>
+						{(colorsData.length || schemesData.length) ? "Show more..." : 'Go to search page'}
 					</div>
 				</div>
 					: <div className={styles.history}>
 						{user
 							? queries.slice().reverse().slice(0, 10).map(query => (
-								<div className={styles['history-item']} onClick={() => goSearch(query.title)} key={query.id}>{query.title} – {new Date(Number(query.date) - 1000).toLocaleString()}</div>
+								<HistoryItem query={query} key={query.id} />
 							))
-							: storedValue.slice(0, 10).map((query: Query) => (
-								<div className={styles['history-item']} onClick={() => goSearch(query.title)} key={query.id}>{query.title} – {new Date(Number(query.date) - 1000).toLocaleString()}</div>
+							: localHistory.slice(0, 10).map((query: Query) => (
+								<HistoryItem query={query} key={query.id} />
 							))}
 						<Link to='/history' onClick={() => setShowResults(false)} className={styles['show-more']}>
-							Show more...
+							Go to history page
 						</Link>
 					</div>
 				)}

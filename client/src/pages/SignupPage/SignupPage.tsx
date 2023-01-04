@@ -1,52 +1,63 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './SignupPage.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { signup, reset } from '../../store/auth/authSlice';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Seo from '../../utils/Seo/Seo';
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import { IconEye, IconEyeOff } from '../../assets/icons/Eye';
+
+interface IFormInput {
+	name: string
+	email: string;
+	password: string;
+	cpassword: string;
+}
+
+const schema = yup.object({
+	name: yup.string().required(),
+	email: yup.string().email('Email must be a valid').required(),
+	password: yup.string()
+		.required("Password is required")
+		.min(4, "Password length should be at least 4 characters")
+		.max(12, "Password cannot exceed more than 12 characters"),
+	cpassword: yup.string()
+		.required("Confirm Password is required")
+		.min(4, "Password length should be at least 4 characters")
+		.max(12, "Password cannot exceed more than 12 characters")
+		.oneOf([yup.ref("password")], "Passwords do not match")
+}).required();
 
 const Signup = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const { user, loading, error, success } = useAppSelector(state => state.auth);
-	const [formData, setFormData] = useState({
-		name: '',
-		email: '',
-		password: '',
-		confirmPassword: '',
-	});
-
-	const { name, email, password, confirmPassword } = formData;
 
 	useEffect(() => {
 		if (success || user) {
 			navigate('/');
 		}
 		dispatch(reset());
-	}, [user, error, success, navigate, dispatch]);
+	}, [user]);
 
-	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		setFormData(prevState => ({
-			...prevState,
-			[e.target.name]: e.target.value,
-		}));
+
+	const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
+		resolver: yupResolver(schema)
+	});
+	const onSubmit: SubmitHandler<IFormInput> = ({ name, email, password }) => {
+		const userData = {
+			name,
+			email,
+			password,
+		};
+		dispatch(signup(userData));
 	};
 
-	const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
-		e.preventDefault();
-		if (password !== confirmPassword) {
-			// Заглушка для ошибки
-			return;
-		} else {
-			const userData = {
-				name,
-				email,
-				password,
-			};
-			dispatch(signup(userData));
-		}
-	};
+	const [passwordVisible, setPasswordVisible] = useState(false)
+	const [cpasswordVisible, setCpasswordVisible] = useState(false)
 
 	return (
 		<>
@@ -65,55 +76,65 @@ const Signup = () => {
 								<p>Please create an account</p>
 							</div>
 							<div className={styles.form}>
-								<form onSubmit={onSubmit}>
+								<form onSubmit={handleSubmit(onSubmit)}>
 									<div className={styles['form-group']}>
 										<input
-											type="text"
+											{...register("name")}
 											className={styles['form-control']}
 											id="name"
 											name="name"
-											value={name}
 											placeholder="Enter your name"
-											onChange={onChange}
+
 										/>
+										<p>{errors.name?.message}</p>
 									</div>
 									<div className={styles['form-group']}>
 										<input
-											type="email"
+											{...register("email")}
 											className={styles['form-control']}
 											id="email"
 											name="email"
-											value={email}
 											placeholder="Enter your email"
-											onChange={onChange}
 										/>
+										<p>{errors.email?.message}</p>
 									</div>
 									<div className={styles['form-group']}>
 										<input
-											type="password"
+											{...register("password")}
+											type={passwordVisible ? 'text' : 'password'}
 											className={styles['form-control']}
 											id="password"
 											name="password"
-											value={password}
 											placeholder="Enter password"
-											onChange={onChange}
 										/>
+										<span onClick={() => setPasswordVisible(p => !p)} className={styles.visibility}>
+											{passwordVisible
+												? <IconEyeOff className={styles.icon} />
+												: <IconEye className={styles.icon} />}
+										</span>
+										<p>{errors.password?.message}</p>
 									</div>
 									<div className={styles['form-group']}>
 										<input
-											type="password"
+											{...register("cpassword")}
+											type={cpasswordVisible ? 'text' : 'password'}
 											className={styles['form-control']}
-											id="confirmPassword"
-											name="confirmPassword"
-											value={confirmPassword}
+											id="cpassword"
+											name="cpassword"
 											placeholder="Confirm password"
-											onChange={onChange}
 										/>
+										<span onClick={() => setCpasswordVisible(p => !p)} className={styles.visibility}>
+											{cpasswordVisible
+												? <IconEyeOff className={styles.icon} />
+												: <IconEye className={styles.icon} />}
+										</span>
+										<p>{errors.cpassword?.message}</p>
 									</div>
+									{error && <p className={styles['server-error']}>User already exists</p>}
 									<div className={styles['form-group']}>
 										<button
 											type="submit"
-											className={`${styles.btn} ${styles['btn-block']}`}
+											className={styles.btn}
 										>
 											Submit
 										</button>

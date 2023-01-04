@@ -13,17 +13,27 @@ import { colourIsLight, hexToRgb } from '../../utils/colorUtils';
 const Generated = () => {
 	const dispatch = useAppDispatch();
 	const { user } = useAppSelector(state => state.auth);
-	const [loading, setLoading] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState('')
 	const [generatedScheme, setGeneratedScheme] = useState<Scheme>()
 
 	async function generate() {
-		const response = await axios.get('https://www.colr.org/json/schemes/random/7?scheme_size_limit=>5', {
-			params: {
-				t: new Date().getTime()
-			}
-		})
-		const schemes = response.data.schemes as Scheme[]
-		setGeneratedScheme(schemes.find(scheme => scheme.colors.length >= 5))
+		try {
+			const response = await axios.get('https://www.colr.org/json/schemes/random/7?scheme_size_limit=>5', {
+				params: {
+					t: new Date().getTime()
+				}
+			})
+			const schemes = response.data.schemes as Scheme[]
+			setGeneratedScheme(schemes.find(scheme => scheme.colors.length >= 5))
+		} catch (error) {
+			let message
+			if (error instanceof Error) message = error.message
+			else message = String(error)
+			setError(message)
+		} finally {
+			setLoading(false)
+		}
 	}
 
 	useEffect(() => {
@@ -38,30 +48,36 @@ const Generated = () => {
 
 	return (
 		<div className={styles.generated}>
-			<div className={styles.colors}>
-				{generatedScheme?.colors.slice(0, 5).map(color =>
-					<div key={color} className={styles.color} style={{ backgroundColor: `#${color}` }}>
-						<h2 style={{ color: `${colourIsLight(hexToRgb(color)) ? '#000' : '#fff'}` }}>
-							#{color}
-						</h2>
+			{loading
+				? <Spinner />
+				: <>
+					<div className={styles.colors}>
+						{generatedScheme?.colors.slice(0, 5).map(color =>
+							<div key={color} className={styles.color} style={{ backgroundColor: `#${color}` }}>
+								<h2 style={{ color: `${colourIsLight(hexToRgb(color)) ? '#000' : '#fff'}` }}>
+									#{color}
+								</h2>
+							</div>
+						)}
 					</div>
-				)}
-			</div>
-			<div className={styles.buttons}>
-				<button className={styles.button} onClick={generate}>
-					<span>Generate</span>
-					<span>
-						<IconSparkles className={styles.sparkles} />
-					</span>
-				</button>
-				{user && <button className={styles.button}>
-					<span>
-						<IconHeart className={styles.heart} onClick={() => addScheme(generatedScheme)} />
-					</span>
-				</button>}
-			</div>
+					<div className={styles.buttons}>
+						<button className={styles.button} onClick={generate}>
+							<span>Generate</span>
+							<span>
+								<IconSparkles className={styles.sparkles} />
+							</span>
+						</button>
+						{user && <button className={styles.button}>
+							<span>
+								<IconHeart className={styles.heart} onClick={() => addScheme(generatedScheme)} />
+							</span>
+						</button>}
+					</div>
+				</>
+
+			}
 		</div>
-	);
+	)
 };
 
 export default Generated;
