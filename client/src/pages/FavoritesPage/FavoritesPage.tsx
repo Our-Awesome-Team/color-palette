@@ -10,10 +10,7 @@ import { reset } from '../../store/auth/authSlice';
 import { IconHeartCircleMinus } from '../../assets/icons/Heart';
 import ColorCard from '../../components/ColorCard/ColorCard';
 import SchemeCard from '../../components/SchemeCard/SchemeCard';
-<<<<<<< HEAD
 import Spinner from '../../components/UI/Spinner/Spinner';
-=======
->>>>>>> main
 import Seo from '../../utils/Seo/Seo';
 
 const Favorites = () => {
