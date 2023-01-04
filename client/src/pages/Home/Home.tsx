@@ -7,13 +7,13 @@ const Home = () => {
 	return (
 		<>
 			<Seo
-				title="Design colors"
+				title="Browse colors"
 				description="Find your favorite color and use it to create!"
 			/>
 			<section className={styles.home}>
 				<div className="container">
 					<Generated />
-					<BrowseColors title="Browse color" />
+					<BrowseColors title="Browse colors" />
 				</div>
 			</section>
 		</>

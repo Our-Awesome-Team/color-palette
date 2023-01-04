@@ -1,2 +1,2 @@
-export const siteName = 'Color palette';
+export const siteName = 'Color Palette';
 export const titleMerge = (title: string) => `${title} | ${siteName}`;

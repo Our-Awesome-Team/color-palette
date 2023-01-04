@@ -1,19 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './SigninPage.module.scss';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { reset, signin } from '../../store/auth/authSlice';
 import Seo from '../../utils/Seo/Seo';
+import { useForm, SubmitHandler } from "react-hook-form";
+
+interface IFormInput {
+	email: string;
+	password: string;
+}
 
 const Signin = () => {
-	const [formData, setFormData] = useState({
-		email: '',
-		password: '',
-	});
-
-	const { email, password } = formData;
-
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -25,17 +24,12 @@ const Signin = () => {
 		}
 
 		dispatch(reset());
-	}, [user, error, success, navigate, dispatch]);
+	}, [success]);
 
-	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		setFormData(prevState => ({
-			...prevState,
-			[e.target.name]: e.target.value,
-		}));
-	};
+	console.log(error)
 
-	const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
-		e.preventDefault();
+	const { register, handleSubmit } = useForm<IFormInput>();
+	const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
 		const userData = {
 			email,
 			password,
@@ -61,34 +55,31 @@ const Signin = () => {
 							</div>
 
 							<div className={styles.form}>
-								<form onSubmit={onSubmit}>
+								<form onSubmit={handleSubmit(onSubmit)}>
 									<div className={styles['form-group']}>
 										<input
-											type="email"
+											{...register("email")}
 											className={styles['form-control']}
 											id="email"
 											name="email"
-											value={email}
 											placeholder="Enter your email"
-											onChange={onChange}
 										/>
 									</div>
 									<div className={styles['form-group']}>
 										<input
+											{...register("password")}
 											type="password"
 											className={styles['form-control']}
 											id="password"
 											name="password"
-											value={password}
 											placeholder="Enter password"
-											onChange={onChange}
 										/>
 									</div>
-
+									{error && <p className={styles['server-error']}>You have entered an invalid email or password</p>}
 									<div className={styles['form-group']}>
 										<button
 											type="submit"
-											className={`${styles.btn} ${styles['btn-block']}`}
+											className={styles.btn}
 										>
 											Submit
 										</button>

@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { onlyText } from '../string/clearText';
 import { siteName, titleMerge } from '../../config/seo-config';
@@ -6,7 +5,7 @@ import { ISeo } from './Seo.interface';
 import { useLocation } from 'react-router-dom';
 import logoImage from '../../assets/images/favicon.svg';
 
-const Seo: FC<ISeo> = ({ title, description, image }) => {
+const Seo = ({ title, description, image }: ISeo) => {
 	const { pathname } = useLocation();
 	const currentUrl = `https:/localhost:3000/${pathname}`;
 

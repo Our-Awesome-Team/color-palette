@@ -2,6 +2,15 @@
   height: 100vh;
 }
 
+.signWrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
 .heading {
   display: flex;
   flex-direction: column;
@@ -12,64 +21,25 @@
   font-weight: 700;
 }
 
-.signWrapper {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-}
-
 .heading p {
   color: #828282;
 }
 
-.goals {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.goal {
-  background-color: #f4f4f4;
-  margin: 10px 0;
-  padding: 20px 0 10px;
-  position: relative;
-}
-
-.goal .close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-.form,
-.content {
+.form {
   width: 70%;
   margin: 0 auto;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+.form-control {
   width: 100%;
-  padding: 10px;
+  padding: 20px 38px 20px 10px;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
   font-family: inherit;
 }
 
-.form-group label {
-  text-align: left;
-  display: block;
-  margin: 0 0 5px 3px;
-}
-
 .btn {
+  width: 100%;
   padding: 10px 20px;
   border: 1px solid #000;
   border-radius: 5px;
@@ -83,19 +53,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.btn svg {
-  margin-right: 8px;
-}
-
-.btn-reverse {
-  background: #fff;
-  color: #000;
-}
-
-.btn-block {
-  width: 100%;
 }
 
 .btn:hover {
@@ -117,10 +74,38 @@
 }
 
 .form {
-  width: 40%;
+  width: 70%;
   > form {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    .server-error {
+      padding: 0 10px;
+      font-weight: 500;
+      color: #777;
+    }
+  }
+}
+
+.form-group {
+  position: relative;
+
+  span {
+    position: absolute;
+    right: 10px;
+    top: 11.5px;
+    .icon {
+      font-size: 21px;
+      color: #bbb;
+      cursor: pointer;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    color: #777;
+    padding: 0 20px;
+    margin-top: 3px;
   }
 }

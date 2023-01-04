@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, memo, useEffect, useState } from 'react';
 import axios from "axios";
 import styles from './Search.module.scss';
 import { Color, Scheme } from '../../../store/favorites/favoritesTypes';
@@ -17,8 +17,6 @@ type SearchProps = {
 }
 
 const Search = ({ fullSize }: SearchProps) => {
-	console.log('rerender');
-
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInput = useDebounce(inputValue, 400);
 	const [showResults, setShowResults] = useState(false)
@@ -69,7 +67,6 @@ const Search = ({ fullSize }: SearchProps) => {
 
 	function closeSuggestion() {
 		document.body.style.overflow = 'auto'
-
 		setTimeout(() => setShowResults(false), 200)
 	}
 
