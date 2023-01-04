@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout, reset } from '../../store/auth/authSlice';
 import Button from '../UI/Button/Button';
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, memo, useEffect, useState } from 'react';
 import Search from '../UI/Search/Search';
 import { IconHeartOutline } from '../../assets/icons/Heart';
 import { UserCircleOutline } from '../../assets/icons/User';
@@ -37,7 +37,6 @@ const Header = () => {
 		navigate('/');
 	};
 
-
 	const [canShowSearch, setCanShowSearch] = useState(true)
 	const [showSearch, setShowSearch] = useState(false)
 
@@ -57,7 +56,6 @@ const Header = () => {
 	}, [])
 
 	const show = (e: MouseEvent<HTMLElement>) => {
-		// e.stopPropagation()
 		setShowSearch(p => !p)
 	}
 
@@ -65,7 +63,6 @@ const Header = () => {
 		<header
 			className={`${styles.header} ${scrollPosition > 0 ? styles.scrolled : ''
 				}`}
-		// onClick={() => setShowSearch(false)}
 		>
 			<div className={styles.container}>
 				<span className={styles.logo}>
@@ -75,7 +72,7 @@ const Header = () => {
 				</span>
 				{(pathname === '/' || pathname === '/user' || pathname === '/favorites') && (showSearch && canShowSearch ? <Search fullSize /> : <Search />)}
 				<div className={styles.btns}>
-					<IconSearch className={styles.searchIcon} onClick={show} />
+					{(pathname === '/' || pathname === '/user' || pathname === '/favorites') && <IconSearch className={styles.searchIcon} onClick={show} />}
 					<Link to="/history">
 						<IconHistory className={styles.history} />
 					</Link>
@@ -109,6 +106,6 @@ const Header = () => {
 			</div>
 		</header >
 	);
-};
+}
 
 export default Header;

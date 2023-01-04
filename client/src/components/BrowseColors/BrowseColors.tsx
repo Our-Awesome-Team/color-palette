@@ -5,6 +5,7 @@ import axios from 'axios';
 import { IconHeart } from '../../assets/icons/Heart';
 import { IconWiRefresh } from '../../assets/icons/Refresh';
 import ColorCard from '../ColorCard/ColorCard';
+import Spinner from '../UI/Spinner/Spinner';
 
 const BrowseColors: FC<{ title: string }> = ({ title }) => {
 	const [colors, setColors] = useState<Color[]>([])
@@ -28,7 +29,7 @@ const BrowseColors: FC<{ title: string }> = ({ title }) => {
 
 	return (
 		<div className={styles.browseColors}>
-			{!loading &&
+			{loading ? <Spinner /> :
 				<>
 					<div className={styles.titleBar}>
 						<h2>{title}</h2>

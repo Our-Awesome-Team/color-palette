@@ -1,0 +1,34 @@
+.history-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 40px;
+  font-size: 16px;
+  background-color: #ffffff;
+
+  .text {
+    display: flex;
+    gap: 10px;
+    .title {
+      cursor: pointer;
+    }
+
+    .date {
+      color: #999;
+      cursor: default;
+    }
+  }
+
+  .icon {
+    font-size: 28px;
+    padding: 3px;
+    border-radius: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f3f3f3;
+    }
+  }
+}

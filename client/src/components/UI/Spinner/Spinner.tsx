@@ -1,9 +1,7 @@
 import styles from './Spinner.module.scss'
 const Spinner = () => {
     return (
-        <div className={styles.loadingSpinnerContainer}>
-            <div className={styles.loadingSpinner}></div>
-        </div>
+        <div className={styles["spin-loader"]} aria-hidden="true"></div>
     )
 }
 

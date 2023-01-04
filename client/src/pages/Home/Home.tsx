@@ -1,6 +1,5 @@
 import Generated from '../../components/Generated/Generated';
 import BrowseColors from '../../components/BrowseColors/BrowseColors';
-
 import styles from './Home.module.scss';
 
 const Home = () => {

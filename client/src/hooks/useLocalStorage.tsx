@@ -21,7 +21,7 @@ export const useLocalStorage = (key: string, initialValue: Query | []) => {
         }
     };
 
-    return [storedValue.slice().reverse(), setValue];
+    return [storedValue, setValue];
 };
 
 export default useLocalStorage;

@@ -3,6 +3,7 @@ import { logout, reset } from '../../store/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import styles from './UserPage.module.scss';
 import { useEffect } from 'react';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const User = () => {
 	const dispatch = useAppDispatch()
@@ -23,14 +24,16 @@ const User = () => {
 
 	return (
 		<section className={styles.user}>
-			<div className={styles.main}>
-				<div className={styles.avatar}></div>
-				<div className={styles.name}>{user?.name}</div>
-				<div className={styles.email}>{user?.email}</div>
-				<div onClick={onLogout}>
-					<button>Log Out</button>
+			{loading ? <Spinner /> :
+				<div className={styles.main}>
+					<div className={styles.avatar}></div>
+					<div className={styles.name}>{user?.name}</div>
+					<div className={styles.email}>{user?.email}</div>
+					<div onClick={onLogout}>
+						<button>Log Out</button>
+					</div>
 				</div>
-			</div>
+			}
 		</section>
 	);
 };

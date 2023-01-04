@@ -68,12 +68,7 @@ const deleteHistory = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 
-  // // Make sure the logged in user matches the favoriteColor user
-  // if (historyItem.user.toString() !== req.user.id) {
-  //   res.status(401);
-  //   throw new Error('User not authorized');
-  // }
-  const historyItem = await History.findByIdAndDelete({ user: req.user.id });
+  await History.deleteMany({ user: req.user.id });
 
   res.status(200).json('Success');
 });
