@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { signup, reset } from '../../store/auth/authSlice';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Seo from '../../utils/Seo/Seo';
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -20,10 +21,10 @@ const Signup = () => {
 
 	useEffect(() => {
 		if (success || user) {
-			navigate('/')
+			navigate('/');
 		}
-		dispatch(reset())
-	}, [user, error, success, navigate, dispatch])
+		dispatch(reset());
+	}, [user, error, success, navigate, dispatch]);
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setFormData(prevState => ({
@@ -49,6 +50,10 @@ const Signup = () => {
 
 	return (
 		<>
+			<Seo
+				title="Sign up"
+				description="Authorization in the colors palette site!"
+			/>
 			{loading ? (
 				<Spinner />
 			) : (
