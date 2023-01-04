@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { reset, signin } from '../../store/auth/authSlice';
+import Seo from '../../utils/Seo/Seo';
 
 const Signin = () => {
 	const [formData, setFormData] = useState({
@@ -20,11 +21,11 @@ const Signin = () => {
 
 	useEffect(() => {
 		if (success || user) {
-			navigate('/')
+			navigate('/');
 		}
 
-		dispatch(reset())
-	}, [user, error, success, navigate, dispatch])
+		dispatch(reset());
+	}, [user, error, success, navigate, dispatch]);
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setFormData(prevState => ({
@@ -44,6 +45,10 @@ const Signin = () => {
 
 	return (
 		<>
+			<Seo
+				title="Sign in"
+				description="Enter the colors palette site!"
+			/>
 			{loading ? (
 				<Spinner />
 			) : (

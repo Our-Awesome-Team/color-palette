@@ -7,11 +7,12 @@ import User from './pages/UserPage/UserPage';
 import History from './pages/HistoryPage/HistoryPage';
 import MainLayout from './components/Layout/MainLayout';
 import SearchPage from './pages/SearchPage/SearchPage';
+import Seo from './utils/Seo/Seo';
 
 function App() {
-
 	return (
 		<>
+
 			<MainLayout>
 				<Routes>
 					<Route path="/" element={<Home />} />

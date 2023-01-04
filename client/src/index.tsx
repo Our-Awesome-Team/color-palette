@@ -6,16 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import './assets/styles/main.scss';
 import { store } from './store/store';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-	<Router>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</Router>
+	<HelmetProvider>
+		<Router>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</Router>
+	</HelmetProvider>
 );
 
 reportWebVitals();

@@ -2,12 +2,16 @@ import { useEffect } from 'react';
 import styles from './FavoritesPage.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useNavigate } from 'react-router';
-import { getFavoriteColors, getFavoriteSchemes } from '../../store/favorites/favoritesSlice';
+import {
+	getFavoriteColors,
+	getFavoriteSchemes,
+} from '../../store/favorites/favoritesSlice';
 import { reset } from '../../store/auth/authSlice';
 import { IconHeartCircleMinus } from '../../assets/icons/Heart';
 import ColorCard from '../../components/ColorCard/ColorCard';
 import SchemeCard from '../../components/SchemeCard/SchemeCard';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import Seo from '../../utils/Seo/Seo';
 
 const Favorites = () => {
 	const navigate = useNavigate();
@@ -18,7 +22,7 @@ const Favorites = () => {
 		if (!user) {
 			navigate('/signin');
 		}
-	}, [user])
+	}, [user]);
 
 	const { favoriteColors, favoriteSchemes, error, loading } = useAppSelector(
 		state => state.favorites
@@ -30,7 +34,7 @@ const Favorites = () => {
 		}
 
 		dispatch(getFavoriteColors());
-		dispatch(getFavoriteSchemes())
+		dispatch(getFavoriteSchemes());
 
 		return () => {
 			dispatch(reset());
@@ -38,24 +42,28 @@ const Favorites = () => {
 	}, [user, navigate, error, dispatch]);
 
 	return (
-		<div className={styles.favorites}>
-			{loading ? <Spinner /> :
-				<>
-					<h2>Schemes</h2>
-					<section className={styles.schemes}>
-						{favoriteSchemes.slice().reverse().map((scheme) =>
-							<SchemeCard key={scheme.id} scheme={scheme} Icon={IconHeartCircleMinus} />
-						)}
-					</section>
-					<h2>Colors</h2>
-					<section className={styles.colors}>
-						{favoriteColors.slice().reverse().map((color) =>
-							<ColorCard color={color} Icon={IconHeartCircleMinus} key={color.id} />
-						)}
-					</section>
-				</>
-			}
-		</div>
+
+		<>
+			<Seo title="Favorite" description="Look at your favorites colors!" />
+			<div className={styles.favorites}>
+				{loading ? <Spinner /> :
+					<>
+						<h2>Schemes</h2>
+						<section className={styles.schemes}>
+							{favoriteSchemes.slice().reverse().map((scheme) =>
+								<SchemeCard key={scheme.id} scheme={scheme} Icon={IconHeartCircleMinus} />
+							)}
+						</section>
+						<h2>Colors</h2>
+						<section className={styles.colors}>
+							{favoriteColors.slice().reverse().map((color) =>
+								<ColorCard color={color} Icon={IconHeartCircleMinus} key={color.id} />
+							)}
+						</section>
+					</>
+				}
+			</div>
+		</>
 	);
 };
 
