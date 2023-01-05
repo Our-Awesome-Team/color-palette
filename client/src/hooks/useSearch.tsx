@@ -12,6 +12,7 @@ export function useSearch() {
     const { user } = useAppSelector(state => state.auth)
 
     function search(title: string | null) {
+        document.body.style.overflow = 'auto'
         navigate(`/search/?query=${title}`);
         const query = {
             id: uuid(),
