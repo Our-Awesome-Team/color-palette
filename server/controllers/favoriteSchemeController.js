@@ -27,7 +27,7 @@ const setFavoriteScheme = asyncHandler(async (req, res) => {
     user: req.user.id,
   });
 
-  res.status(200).json(favoriteScheme);
+  res.status(201).json(favoriteScheme);
 });
 
 // @desc    Delete favorite scheme

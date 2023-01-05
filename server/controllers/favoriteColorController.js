@@ -33,7 +33,7 @@ const setFavoriteColor = asyncHandler(async (req, res) => {
     user: req.user.id,
   });
 
-  res.status(200).json(favoriteColor);
+  res.status(201).json(favoriteColor);
 });
 
 // @desc    Delete favorite color
