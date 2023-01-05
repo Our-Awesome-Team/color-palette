@@ -5,7 +5,7 @@ import SavedImage from './SavedImage';
 import styles from './AvatarUpload.module.scss'
 
 
-const Home = () => {
+const AvatarUpload = () => {
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [isErrored, setError] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
@@ -118,4 +118,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default AvatarUpload;
