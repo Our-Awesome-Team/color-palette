@@ -1,8 +1,10 @@
-import React, { useRef, useState, DragEvent, ChangeEvent } from 'react';
-import LogoInteractInfo from './LogoInteractInfo';
-import SelectedImageComponent from './SelectedImageComponent';
-import SavedImage from './SavedImage';
+import React, { useRef, useState, DragEvent, ChangeEvent, useEffect } from 'react';
+import LogoInteractInfo from './LogoInteractInfo/LogoInteractInfo';
+import SelectedImageComponent from './SelectedImageComponent/SelectedImageComponent';
+import SavedImage from './SavedImage/SavedImage';
 import styles from './AvatarUpload.module.scss'
+import axios from 'axios';
+import { useAppSelector } from '../../store/hooks';
 
 
 const AvatarUpload = () => {
@@ -72,7 +74,52 @@ const AvatarUpload = () => {
         event.preventDefault();
     };
 
+    const [avatarFromServer, setAvatarFromServer] = useState(null)
+    const { user } = useAppSelector(state => state.auth)
+    useEffect(() => {
+        async function fetchAvatar() {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/upload/files/${user?.email}.jpg`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user?.token}`,
+
+                        }
+                    })
+                setAvatarFromServer(res.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchAvatar()
+    }, [])
+
+    const deleteAvatar = async () => {
+        try {
+            await axios.delete(`http://localhost:5000/api/upload/files/${user?.email}.jpg`, {
+                headers: {
+                    Authorization: `Bearer ${user?.token}`,
+                }
+            })
+            reset()
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
     const renderChild = () => {
+        if (!!avatarFromServer && !imageFile) {
+            return (
+                <SavedImage
+                    avatarFromServer={!!avatarFromServer}
+                    imageFile={imageFile}
+                    zoomLevel={zoomLevel}
+                    inputRef={inputRef}
+                    onChangeInput={onChangeInput}
+                />
+            )
+        }
         if (!isErrored && !imageFile)
             return (
                 <LogoInteractInfo inputRef={inputRef} onChangeInput={onChangeInput} />
@@ -101,19 +148,18 @@ const AvatarUpload = () => {
 
     return (
         <>
+
             <div className={styles.wrapper}
-                // image={imageFile}
-                // isErrored={isErrored}
-                // isSaved={isSaved}
                 onClick={onClickContainer}
                 onDrop={fileDrop}
                 onDragOver={dragOver}
                 onDragEnter={dragEnter}
                 onDragLeave={dragLeave}
             >
-                {!imageFile && <div className={styles.nullAvatar}></div>}
+                {(!imageFile && !avatarFromServer) && <div className={styles.nullAvatar}></div>}
                 {renderChild()}
             </div>
+            {(!!avatarFromServer || isSaved) && <div onClick={deleteAvatar} className={styles['delete-btn']}>Delete Image</div>}
         </>
     );
 };

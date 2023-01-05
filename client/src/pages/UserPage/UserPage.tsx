@@ -5,8 +5,8 @@ import styles from './UserPage.module.scss';
 import { useEffect } from 'react';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Seo from '../../utils/Seo/Seo';
-import AvatarUpload from '../../components/AvatarUpload';
-import SavedImage from '../../components/AvatarUpload/SavedImage/index.js';
+import AvatarUpload from '../../components/AvatarUpload/AvatarUpload';
+
 
 const User = () => {
 	const dispatch = useAppDispatch();
@@ -23,6 +23,8 @@ const User = () => {
 		dispatch(reset());
 		navigate('/');
 	};
+
+
 
 	return (
 		<>
