@@ -3,7 +3,6 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
-const port = process.env.PORT || 5000;
 const cors = require('cors');
 
 connectDB();
@@ -34,4 +33,4 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(errorHandler);
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+module.exports = app;

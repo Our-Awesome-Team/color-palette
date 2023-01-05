@@ -27,7 +27,7 @@ const setHistory = asyncHandler(async (req, res) => {
     user: req.user.id,
   });
 
-  res.status(200).json(historyItem);
+  res.status(201).json(historyItem);
 });
 
 // @desc    Clear history item
