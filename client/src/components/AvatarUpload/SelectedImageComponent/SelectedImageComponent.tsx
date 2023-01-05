@@ -1,7 +1,9 @@
 import { ChangeEvent, useEffect, useRef } from 'react';
-import AvatarImage from '../../AvatarImage';
+import AvatarImage from '../../AvatarImage/AvatarImage';
 import styles from './SelectedImageComponent.module.scss'
 import Slider from '../../UI/Slider/Slider';
+import axios from 'axios';
+import { useAppSelector } from '../../../store/hooks';
 
 interface Props {
     handleSliderChange: (event: ChangeEvent<HTMLInputElement>) => void
@@ -33,7 +35,24 @@ const SelectedImageComponent = ({
         setZoom(zoomLevel);
     }, [zoomLevel]);
 
-    const handleSaveButtonClick = () => setIsSaved(true);
+    const { user } = useAppSelector(state => state.auth)
+
+    const uploadFile = async () => {
+        let data = new FormData();
+        data.append('image', imageFile as Blob);
+        await axios.post('http://localhost:5000/api/upload', data, {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+
+        })
+    }
+
+    const handleSaveButtonClick = () => {
+        uploadFile()
+        setIsSaved(true)
+    };
 
     return (
         <div className={styles['content-wrapper']}>
