@@ -48,10 +48,14 @@ const History = () => {
 							) : (
 								<h3>History's empty</h3>
 							)
+						) : localHistory.length ? (
+							<>
+								{localHistory.map((query: Query) => (
+									<HistoryItem query={query} key={query.id} />
+								))}
+							</>
 						) : (
-							localHistory.map((query: Query) => (
-								<HistoryItem query={query} key={query.id} />
-							))
+							<h3>History's empty</h3>
 						)}
 						<div className={styles.btn}>
 							<button onClick={() => navigate(-1)}>Go back</button>
