@@ -15,7 +15,7 @@ const SchemeCard = ({ scheme, Icon, add = false }: Props) => {
     const { user } = useAppSelector(state => state.auth)
 
     const removeScheme = () => {
-        dispatch(deleteFavoriteScheme(Number(scheme.id)))
+        dispatch(deleteFavoriteScheme(scheme.id))
     }
 
     const addScheme = () => {

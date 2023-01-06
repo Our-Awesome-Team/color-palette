@@ -67,9 +67,9 @@ const Generated = () => {
 								<IconSparkles className={styles.sparkles} />
 							</span>
 						</button>
-						{user && <button className={styles.button}>
+						{user && <button className={styles.button} onClick={() => addScheme(generatedScheme)}>
 							<span>
-								<IconHeart className={styles.heart} onClick={() => addScheme(generatedScheme)} />
+								<IconHeart className={styles.heart} />
 							</span>
 						</button>}
 					</div>

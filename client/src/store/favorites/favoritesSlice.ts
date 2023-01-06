@@ -142,7 +142,7 @@ export const deleteFavoriteColor = createAsyncThunk<
 // Delete user favorite scheme
 export const deleteFavoriteScheme = createAsyncThunk<
   Scheme,
-  number,
+  string | number,
   { rejectValue: string; state: { auth: AuthState } }
 >('favoriteSchemes/delete', async (id, { rejectWithValue, getState }) => {
   try {
@@ -211,7 +211,7 @@ export const favoritesSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.favoriteColors = state.favoriteColors.filter(
-          (favoriteColor) => favoriteColor.id !== action.payload.id
+          (favoriteColor) => favoriteColor.id !== Number(action.payload.id)
         );
       })
       .addCase(deleteFavoriteScheme.pending, (state) => {

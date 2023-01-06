@@ -69,7 +69,7 @@ const deleteFavoriteColor = async (favoriteColorId: number, token: string) => {
 
 // Delete user favorite scheme
 const deleteFavoriteScheme = async (
-  favoriteSchemeId: number,
+  favoriteSchemeId: string | number,
   token: string
 ) => {
   const config = {

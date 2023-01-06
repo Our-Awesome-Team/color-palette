@@ -18,7 +18,7 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
     }
 
     const removeColor = () => {
-        dispatch(deleteFavoriteColor(Number(color.id)))
+        dispatch(deleteFavoriteColor(color.id))
     }
 
     return (
@@ -29,8 +29,9 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
             >
                 {user && <Icon className={styles.icon} />}
             </div>
-            <span>
+            <span className={styles.hex}>
                 #{color.hex}
+                <div className={styles.tags}>{color.tags.map(tag => <span key={tag.id}>{tag.name}&nbsp;</span>)}</div>
             </span>
         </div>
     )
