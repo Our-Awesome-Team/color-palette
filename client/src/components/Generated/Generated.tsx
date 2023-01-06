@@ -43,7 +43,7 @@ const Generated = () => {
 
       const schemes = response.data.schemes as Scheme[];
 	  if (lockedColors.length) {
-		setGeneratedScheme(schemes.find((scheme) => scheme.colors.every((el,idx)=>el==lockedColors[idx]))); return
+		setGeneratedScheme(schemes.find((scheme) => scheme.colors.some((el,idx)=>el==lockedColors[idx]))); return
 	  }
       setGeneratedScheme(schemes.find((scheme) => scheme.colors.length >= 5));
       console.log(generatedScheme);
