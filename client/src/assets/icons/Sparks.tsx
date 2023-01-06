@@ -1,4 +1,4 @@
-export function IconSparkles(props: any) {
+export const IconSparkles = (props: any) => {
   return (
     <svg
       viewBox="0 0 512 512"
@@ -12,7 +12,7 @@ export function IconSparkles(props: any) {
   );
 }
 
-export function IconSparklesOutline(props: any) {
+export const IconSparklesOutline = (props: any) => {
   return (
     <svg
       viewBox='0 0 512 512'

@@ -5,13 +5,13 @@ import styles from './UserPage.module.scss';
 import { useEffect } from 'react';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Seo from '../../utils/Seo/Seo';
-import AvatarUpload from '../../components/AvatarUpload';
-import SavedImage from '../../components/AvatarUpload/SavedImage/index.js';
+import AvatarUpload from '../../components/AvatarUpload/AvatarUpload';
 
 const User = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const { user, loading, error } = useAppSelector(state => state.auth);
+
 	useEffect(() => {
 		if (!user) {
 			navigate('/signin');
@@ -33,7 +33,6 @@ const User = () => {
 			<section className={styles.user}>
 				{loading ? <Spinner /> :
 					<div className={styles.main}>
-						{/* <div className={styles.avatar}></div> */}
 						<AvatarUpload />
 						<div className={styles.name}>{user?.name}</div>
 						<div className={styles.email}>{user?.email}</div>

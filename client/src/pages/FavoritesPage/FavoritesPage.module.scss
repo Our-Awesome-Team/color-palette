@@ -45,3 +45,28 @@
     }
   }
 }
+
+h3 {
+  font-size: 25px;
+  font-weight: 600;
+  padding: 0 20px 15px 20px;
+  max-width: 1170px;
+  width: 100%;
+  margin: auto;
+}
+.btn {
+  font-size: 25px;
+  font-weight: 600;
+  padding: 0 20px 15px 20px;
+  max-width: 1170px;
+  width: 100%;
+  margin: 10px auto;
+  button {
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #111;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+}

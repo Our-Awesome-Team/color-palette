@@ -1,4 +1,4 @@
-export function IconArrowRightShort(props: any) {
+export const IconArrowRightShort = (props: any) => {
     return (
         <svg
             fill="currentColor"

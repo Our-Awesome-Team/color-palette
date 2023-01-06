@@ -1,4 +1,4 @@
-export function IconWiRefresh(props: any) {
+export const IconWiRefresh = (props: any) => {
     return (
         <svg
             fill="none"

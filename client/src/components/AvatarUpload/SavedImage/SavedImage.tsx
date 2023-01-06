@@ -1,6 +1,6 @@
 import React, { RefObject, useEffect, useRef } from 'react';
-import AvatarImage from '../../AvatarImage';
-import LogoInteractInfo from '../LogoInteractInfo';
+import AvatarImage from '../../AvatarImage/AvatarImage';
+import LogoInteractInfo from '../LogoInteractInfo/LogoInteractInfo';
 import styles from './SavedImage.module.scss'
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
     zoomLevel: number;
     inputRef: RefObject<HTMLInputElement>;
     onChangeInput: (ev: React.FormEvent<HTMLInputElement>) => void;
+    avatarFromServer?: boolean
 }
 
 const SavedImage = ({
@@ -15,6 +16,7 @@ const SavedImage = ({
     zoomLevel,
     inputRef,
     onChangeInput,
+    avatarFromServer
 }: Props) => {
     const imgRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +29,7 @@ const SavedImage = ({
 
     return (
         <div className={styles['content-wrapper']}>
-            <AvatarImage file={imageFile} imgRef={imgRef} />
+            <AvatarImage avatarFromServer={avatarFromServer} file={imageFile} imgRef={imgRef} />
             <LogoInteractInfo inputRef={inputRef} onChangeInput={onChangeInput} />
         </div>
     );

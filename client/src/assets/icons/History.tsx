@@ -1,4 +1,4 @@
-export function IconHistory(props: any) {
+export const IconHistory = (props: any) => {
     return (
         <svg
             viewBox="0 0 24 24"

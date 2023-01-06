@@ -1,6 +1,6 @@
-import { addFavoriteScheme, deleteFavoriteScheme } from "../../store/favorites/favoritesSlice"
+import { useAddFavoriteSchemeMutation, useRemoveFavoriteSchemeMutation } from "../../store/favorites/favoritesApi"
 import { Scheme } from "../../store/favorites/favoritesTypes"
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppSelector } from '../../store/hooks'
 import { colourIsLight, hexToRgb } from "../../utils/colorUtils"
 import styles from './SchemeCard.module.scss'
 
@@ -11,17 +11,17 @@ type Props = {
 }
 
 const SchemeCard = ({ scheme, Icon, add = false }: Props) => {
-    const dispatch = useAppDispatch()
     const { user } = useAppSelector(state => state.auth)
 
-    const removeScheme = () => {
-        dispatch(deleteFavoriteScheme(Number(scheme.id)))
+    const [addFavoriteScheme] = useAddFavoriteSchemeMutation()
+    const [removeFavoriteScheme] = useRemoveFavoriteSchemeMutation()
+
+    const addScheme = async () => {
+        await addFavoriteScheme(scheme)
     }
 
-    const addScheme = () => {
-        if (scheme) {
-            dispatch(addFavoriteScheme(scheme))
-        }
+    const removeScheme = async () => {
+        await removeFavoriteScheme(scheme.id)
     }
 
     return (

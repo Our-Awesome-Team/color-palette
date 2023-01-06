@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../store/auth/authSlice';
-import favoritesReducer from './favorites/favoritesSlice';
-import historyReducer from './history/historySlice';
+import { favoritesApi } from './favorites/favoritesApi';
+import { historyApi } from './history/historyApi';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    favorites: favoritesReducer,
-    history: historyReducer,
+    [favoritesApi.reducerPath]: favoritesApi.reducer,
+    [historyApi.reducerPath]: historyApi.reducer,
   },
+  middleware: (gDM) =>
+    gDM().concat(favoritesApi.middleware).concat(historyApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

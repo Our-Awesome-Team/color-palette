@@ -15,6 +15,7 @@ const LogoInteractInfo = ({ inputRef, onChangeInput }: Props) => (
             className={styles['file-input']}
             ref={inputRef}
             type='file'
+            name='image'
             accept='image/png, image/jpeg, image/jpg'
             onChange={onChangeInput}
             data-testid='input-file'

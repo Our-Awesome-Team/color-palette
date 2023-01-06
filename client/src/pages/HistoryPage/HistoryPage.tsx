@@ -1,53 +1,66 @@
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { Query } from '../../store/history/historyTypes';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 import styles from './HistoryPage.module.scss';
-import { deleteHistory, getHistory } from '../../store/history/historySlice';
-import { useEffect } from 'react';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import HistoryItem from '../../components/HistoryItem/HistoryItem';
 import Seo from '../../utils/Seo/Seo';
-
+import { useGetHisotoryQuery, useRemoveHistoryMutation } from '../../store/history/historyApi';
+import { IHistoryItem } from '../../store/history/historyTypes.js';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const History = () => {
-	const dispatch = useAppDispatch()
+	const navigate = useNavigate();
 	const { user } = useAppSelector(state => state.auth)
-	const { queries, loading } = useAppSelector(
-		state => state.history
-	);
+	const { data: history, isLoading, refetch } = useGetHisotoryQuery()
 
 	useEffect(() => {
-		dispatch(getHistory())
+		if (!history) {
+			refetch()
+			console.log('refetch');
+		}
 	}, [])
 
-	const [localHistory, setLocalHistory] = useLocalStorage('history', [])
+	const [removeHistory] = useRemoveHistoryMutation()
 
-	function clearHistory() {
-		user ? dispatch(deleteHistory()) : setLocalHistory([])
+	const [localHistory, setLocalHistory] = useLocalStorage('history', []);
+
+	const clearHistory = async () => {
+		user ? await removeHistory() : setLocalHistory([])
 	}
 
 	return (
 		<>
 			<Seo title="History" description="Look at colors you search recently!" />
 			<section className={styles.history}>
-				{loading ? <Spinner /> :
-					<>
+				{isLoading
+					? <Spinner />
+					: <>
 						<button onClick={clearHistory}>Clear</button>
 						{user
-							? queries.slice().reverse().map(query => (
-								<HistoryItem query={query} key={query.id} />
-							))
-							: localHistory.map((query: Query) => (
-								<HistoryItem query={query} key={query.id} />
-							))}
+							? history?.length
+								? <>
+									{history.slice().reverse().map(query => (
+										<HistoryItem query={query} key={query.id} />
+									))}
+								</>
+								: <h3>History's empty</h3>
+							: localHistory.length
+								? <>
+									{localHistory.map((query: IHistoryItem) => (
+										<HistoryItem query={query} key={query.id} />
+									))}
+								</>
+								: <h3>History's empty</h3>
+						}
+						<div className={styles.btn}>
+							<button onClick={() => navigate(-1)}>Go back</button>
+						</div>
 					</>
 				}
-			</section >
+			</section>
 		</>
 	);
 };
 
 export default History;
-
-
-

@@ -1,4 +1,4 @@
-export function IconHeart(props: any) {
+export const IconHeart = (props: any) => {
     return (
         <svg
             viewBox="0 0 512 512"
@@ -12,7 +12,7 @@ export function IconHeart(props: any) {
     );
 }
 
-export function IconHeartOutline(props: any) {
+export const IconHeartOutline = (props: any) => {
     return (
         <svg
             viewBox="0 0 512 512"
@@ -26,7 +26,7 @@ export function IconHeartOutline(props: any) {
     );
 }
 
-export function IconHeartCircleMinus(props: any) {
+export const IconHeartCircleMinus = (props: any) => {
     return (
         <svg
             viewBox="0 0 576 512"
