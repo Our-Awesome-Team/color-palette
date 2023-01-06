@@ -32,13 +32,18 @@ const Search = ({ fullSize }: SearchProps) => {
 	}, [inputValue])
 
 	useEffect(() => {
-		const fetchColor = async (query: string) => {
-			const response = await axios.get(`https://www.colr.org/json/tag/${query}`);
-			setColorsData(response.data.colors);
-			setSchemesData(response.data.schemes);
-
-		};
-		fetchColor(inputValue)
+		const fetch = async (query: string) => {
+			if (query.trim().split(' ').length === 1) {
+				const response = await axios.get(`https://www.colr.org/json/tag/${query.trim().toLowerCase()}`);
+				setColorsData(response.data.colors);
+				setSchemesData(response.data.schemes);
+			} else {
+				const response = await axios.get(`https://www.colr.org/json/tags/${query.trim().toLowerCase().split(' ').join(',')}`);
+				setColorsData(response.data.colors);
+				setSchemesData(response.data.schemes);
+			}
+		}
+		fetch(inputValue)
 	}, [debouncedInput])
 
 
@@ -46,7 +51,6 @@ const Search = ({ fullSize }: SearchProps) => {
 		setInputValue(e.target.value);
 	};
 
-	const navigate = useNavigate()
 
 	const { queries } = useAppSelector(
 		state => state.history
@@ -90,7 +94,7 @@ const Search = ({ fullSize }: SearchProps) => {
 									style={{ backgroundColor: `#${color.hex}`, color: `${colourIsLight(hexToRgb(`#${color.hex}`)) ? '#000' : '#fff'}` }}
 									className={styles.color}
 									key={color.id}
-									onClick={e => e.stopPropagation()}
+									onClick={() => search(searchParams.get('query'))}
 								>
 									<span>
 										#{color.hex}
@@ -99,13 +103,13 @@ const Search = ({ fullSize }: SearchProps) => {
 							)
 							)}
 						{schemesData &&
-							schemesData.filter(scheme => scheme.colors.length >= 5).slice(0, 5).map((scheme) => <div key={scheme.id} className={styles.scheme}>
+							schemesData.filter(scheme => scheme.colors?.length >= 5).slice(0, 5).map((scheme) => <div key={scheme.id} className={styles.scheme}>
 								{scheme.colors.map(color => (color &&
 									<div
 										style={{ backgroundColor: `#${color}`, color: `${colourIsLight(hexToRgb(`#${color}`)) ? '#000' : '#fff'}` }}
 										className={styles.color}
 										key={color}
-										onClickCapture={e => e.stopPropagation()}
+										onClick={() => search(searchParams.get('query'))}
 									>
 										<span>
 											#{color}
@@ -117,7 +121,7 @@ const Search = ({ fullSize }: SearchProps) => {
 							)}
 					</div>
 					<div onClick={() => search(searchParams.get('query'))} className={styles['show-more']}>
-						{(colorsData.length || schemesData.length) ? "Show more..." : 'Go to search page'}
+						{(colorsData?.length || schemesData?.length) ? "Show more..." : 'Go to search page'}
 					</div>
 				</div>
 					: <div className={styles.history}>

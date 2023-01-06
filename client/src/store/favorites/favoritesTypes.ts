@@ -4,13 +4,13 @@ export type Tag = {
 };
 
 export type Color = {
-  id: number | string;
+  id: number;
   hex: string;
   tags: Tag[];
 };
 
 export type Scheme = {
-  id: number | string;
+  id: string | number;
   colors: string[];
   tags: Tag[];
 };
