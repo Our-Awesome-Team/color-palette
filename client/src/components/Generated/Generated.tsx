@@ -15,7 +15,7 @@ const Generated = () => {
 	const [error, setError] = useState('');
 	const [generatedScheme, setGeneratedScheme] = useState<Scheme>();
 
-	async function generate() {
+	const generate = async () => {
 		try {
 			const response = await axios.get(
 				'https://www.colr.org/json/schemes/random/7?scheme_size_limit=>5',

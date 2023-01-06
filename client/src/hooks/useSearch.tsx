@@ -5,14 +5,14 @@ import useLocalStorage from "./useLocalStorage";
 import { useAddHistoryItemMutation } from "../store/history/historyApi";
 
 
-export function useSearch() {
+export const useSearch = () => {
     const navigate = useNavigate()
     const [localHistory, setLocalHistory] = useLocalStorage('history', [])
     const { user } = useAppSelector(state => state.auth)
 
     const [addHistoryItem] = useAddHistoryItemMutation()
 
-    function search(title: string | null) {
+    const search = (title: string | null) => {
         document.body.style.overflow = 'auto'
         navigate(`/search/?query=${title}`);
         const query = {

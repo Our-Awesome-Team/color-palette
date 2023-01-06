@@ -31,7 +31,7 @@ const upload = async (req, res) => {
 const getListFiles = (req, res) => {
   const directoryPath = __basedir + '/uploads/';
 
-  fs.readdir(directoryPath, function (err, files) {
+  fs.readdir(directoryPath, (err, files) => {
     if (err) {
       res.status(500).send({
         message: 'Unable to scan files!',

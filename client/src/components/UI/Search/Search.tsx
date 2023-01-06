@@ -1,11 +1,11 @@
-import { ChangeEvent, memo, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import axios from "axios";
 import styles from './Search.module.scss';
 import { Color, Scheme } from '../../../store/favorites/favoritesTypes';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import useDebounce from '../../../hooks/useDebounce';
 import { colourIsLight, hexToRgb } from '../../../utils/colorUtils';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '../../../store/hooks';
 import useLocalStorage from '../../../hooks/useLocalStorage';
 import HistoryItem from '../../HistoryItem/HistoryItem';
 import { useSearch } from '../../../hooks/useSearch';
@@ -57,12 +57,12 @@ const Search = ({ fullSize }: SearchProps) => {
 
 	const search = useSearch()
 
-	function openSuggestion() {
+	const openSuggestion = () => {
 		document.body.style.overflow = 'hidden'
 		setShowResults(true)
 	}
 
-	function closeSuggestion() {
+	const closeSuggestion = () => {
 		document.body.style.overflow = 'auto'
 		setTimeout(() => setShowResults(false), 200)
 	}

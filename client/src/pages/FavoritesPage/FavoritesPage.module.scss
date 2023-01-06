@@ -1,72 +1,72 @@
 .favorites {
-	display: flex;
-	margin: auto;
-	flex-direction: column;
-	justify-content: center;
-	margin-top: 80px;
-	background-color: #f3f3f3;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 80px;
+  background-color: #f3f3f3;
 
-	h2 {
-		font-size: 25px;
-		font-weight: 600;
-		padding: 0 20px 15px 20px;
-		max-width: 1170px;
-		width: 100%;
-		margin: auto;
-	}
+  h2 {
+    font-size: 25px;
+    font-weight: 600;
+    padding: 0 20px 15px 20px;
+    max-width: 1170px;
+    width: 100%;
+    margin: auto;
+  }
 
-	.schemes {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		margin: auto;
-		max-width: 1170px;
-		width: 100%;
-		gap: 25px;
-		padding: 0 20px 20px 20px;
-	}
+  .schemes {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: auto;
+    max-width: 1170px;
+    width: 100%;
+    gap: 25px;
+    padding: 0 20px 20px 20px;
+  }
 
-	.colors {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin: auto;
-		max-width: 1170px;
-		gap: 5px;
+  .colors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    max-width: 1170px;
+    gap: 5px;
 
-		.colorCard {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			gap: 5px;
-			margin-bottom: 3px;
-			background-color: #ffffff;
-			padding: 5px;
-		}
-	}
+    .colorCard {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 3px;
+      background-color: #ffffff;
+      padding: 5px;
+    }
+  }
 }
 
 h3 {
-	font-size: 25px;
-	font-weight: 600;
-	padding: 0 20px 15px 20px;
-	max-width: 1170px;
-	width: 100%;
-	margin: auto;
+  font-size: 25px;
+  font-weight: 600;
+  padding: 0 20px 15px 20px;
+  max-width: 1170px;
+  width: 100%;
+  margin: auto;
 }
 .btn {
-	font-size: 25px;
-	font-weight: 600;
-	padding: 0 20px 15px 20px;
-	max-width: 1170px;
-	width: 100%;
-	margin: auto;
-	button {
-		font-size: 14px;
-		font-weight: 500;
-		background-color: #111;
-		color: #ffffff;
-		padding: 5px 10px;
-		border-radius: 5px;
-	}
+  font-size: 25px;
+  font-weight: 600;
+  padding: 0 20px 15px 20px;
+  max-width: 1170px;
+  width: 100%;
+  margin: 10px auto;
+  button {
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #111;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
 }

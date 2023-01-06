@@ -45,7 +45,6 @@ const SelectedImageComponent = ({
                 Authorization: `Bearer ${user?.token}`,
                 'Content-Type': 'multipart/form-data'
             }
-
         })
     }
 

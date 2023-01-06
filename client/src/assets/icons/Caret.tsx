@@ -1,4 +1,4 @@
-export function IconCaretDownFill(props: any) {
+export const IconCaretDownFill = (props: any) => {
     return (
         <svg
             fill="currentColor"

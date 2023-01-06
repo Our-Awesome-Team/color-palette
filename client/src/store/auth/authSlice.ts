@@ -36,7 +36,7 @@ export const signup = createAsyncThunk<
       return await authService.signup(user);
     }
     return rejectWithValue('Something went wrong');
-  } catch (error: any) {
+  } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
@@ -56,7 +56,7 @@ export const signin = createAsyncThunk<
       return await authService.signin(user);
     }
     return rejectWithValue('Something went wrong');
-  } catch (error: any) {
+  } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
@@ -110,6 +110,6 @@ export const authSlice = createSlice({
 export const { reset } = authSlice.actions;
 export default authSlice.reducer;
 
-function isError(action: AnyAction) {
+const isError = (action: AnyAction) => {
   return action.type.endsWith('rejected');
-}
+};

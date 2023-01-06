@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './SearchPage.module.scss';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import useDebounce from '../../hooks/useDebounce';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 import { Color, Scheme } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -26,7 +26,6 @@ const SearchPage = () => {
 
 	const [colorsData, setColorsData] = useState<Color[]>([]);
 	const [schemesData, setSchemesData] = useState<Scheme[]>([]);
-	const dispatch = useAppDispatch();
 
 	console.log(schemesData)
 
@@ -62,7 +61,7 @@ const SearchPage = () => {
 
 	const [addHistoryItem] = useAddHistoryItemMutation()
 
-	function goSearch(title: URLSearchParams) {
+	const goSearch = (title: URLSearchParams) => {
 		navigate(`/search/?${title}`);
 		const query = {
 			id: uuid(),

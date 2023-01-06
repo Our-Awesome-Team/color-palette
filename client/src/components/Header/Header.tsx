@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout, reset } from '../../store/auth/authSlice';
 import Button from '../UI/Button/Button';
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Search from '../UI/Search/Search';
 import { IconHeartOutline } from '../../assets/icons/Heart';
 import { UserCircleOutline } from '../../assets/icons/User';
@@ -15,7 +15,6 @@ import { historyApi } from '../../store/history/historyApi';
 
 const Header = () => {
 	const { pathname } = useLocation();
-
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const handleScroll = () => {
 		const position = window.pageYOffset;
@@ -46,7 +45,7 @@ const Header = () => {
 	const [showSearch, setShowSearch] = useState(false)
 
 	useEffect(() => {
-		function show() {
+		const show = () => {
 			if (Number(window.innerWidth) <= 767.98) {
 				setCanShowSearch(true)
 			} else {
@@ -60,7 +59,7 @@ const Header = () => {
 		return () => window.removeEventListener('resize', show)
 	}, [])
 
-	const show = (e: MouseEvent<HTMLElement>) => {
+	const show = () => {
 		setShowSearch(p => !p)
 	}
 
@@ -114,3 +113,4 @@ const Header = () => {
 }
 
 export default Header;
+

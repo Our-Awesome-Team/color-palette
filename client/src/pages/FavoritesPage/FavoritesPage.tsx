@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import styles from './FavoritesPage.module.scss';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 import { useNavigate } from 'react-router';
-import { reset } from '../../store/auth/authSlice';
 import { IconHeartCircleMinus } from '../../assets/icons/Heart';
 import ColorCard from '../../components/ColorCard/ColorCard';
 import SchemeCard from '../../components/SchemeCard/SchemeCard';
@@ -13,10 +12,15 @@ import { useGetFavoriteColorsQuery, useGetFavoriteSchemesQuery } from '../../sto
 const Favorites = () => {
 	const navigate = useNavigate();
 
-	const { data: favoriteColors, isLoading: isColorsLoading, isError: isColorsError } = useGetFavoriteColorsQuery()
-	const { data: favoriteSchemes, isLoading: isSchemesLoading, isError: isSchemesError } = useGetFavoriteSchemesQuery()
+	const { data: favoriteColors, isLoading: isColorsLoading, isError: isColorsError, refetch: refetchColors } = useGetFavoriteColorsQuery()
+	const { data: favoriteSchemes, isLoading: isSchemesLoading, isError: isSchemesError, refetch: refetchSchemes } = useGetFavoriteSchemesQuery()
 
 	const { user } = useAppSelector(state => state.auth);
+
+	useEffect(() => {
+		refetchColors()
+		refetchSchemes()
+	}, [])
 
 	useEffect(() => {
 		if (!user) {
@@ -31,7 +35,7 @@ const Favorites = () => {
 				<h2>Schemes</h2>
 				{isSchemesLoading
 					? <Spinner />
-					: isSchemesError ? "Can't get colors"
+					: isSchemesError ? <h3>Can't get schemes</h3>
 						: <>
 							{favoriteSchemes?.length ? (
 								<section className={styles.schemes}>
@@ -54,7 +58,7 @@ const Favorites = () => {
 				<h2>Colors</h2>
 				{isColorsLoading
 					? <Spinner />
-					: isColorsError ? "Can't get colors"
+					: isColorsError ? <h3>Can't get colors</h3>
 						: <>
 							{favoriteColors?.length ? (
 								<section className={styles.colors}>
@@ -77,7 +81,6 @@ const Favorites = () => {
 				<div className={styles.btn}>
 					<button onClick={() => navigate(-1)}>Go back</button>
 				</div>
-
 			</div >
 		</>
 	);

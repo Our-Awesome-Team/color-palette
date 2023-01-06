@@ -25,8 +25,6 @@ const Signin = () => {
 		dispatch(reset());
 	}, [user, success]);
 
-	console.log(error)
-
 	const { register, handleSubmit } = useForm<IFormInput>();
 	const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
 		const userData = {

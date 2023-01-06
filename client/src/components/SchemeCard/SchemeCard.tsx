@@ -1,6 +1,6 @@
 import { useAddFavoriteSchemeMutation, useRemoveFavoriteSchemeMutation } from "../../store/favorites/favoritesApi"
 import { Scheme } from "../../store/favorites/favoritesTypes"
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppSelector } from '../../store/hooks'
 import { colourIsLight, hexToRgb } from "../../utils/colorUtils"
 import styles from './SchemeCard.module.scss'
 

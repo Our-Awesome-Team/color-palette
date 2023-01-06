@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SetStateAction, useState } from 'react'
+import { ChangeEvent } from 'react'
 import styles from './Slider.module.scss'
 
 type Props = {
@@ -8,9 +8,7 @@ type Props = {
 
 const MAX = 10;
 const Slider = ({ value, onChange }: Props) => {
-    // const [value, setValue] = useState(0);
-
-    function getBackgroundSize() {
+    const getBackgroundSize = () => {
         return {
             backgroundSize: `${(value * 100) / MAX}% 100%`,
         };

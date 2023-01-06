@@ -13,14 +13,19 @@ const History = () => {
 	const navigate = useNavigate();
 	const { user } = useAppSelector(state => state.auth)
 	const { data: history, isLoading, refetch } = useGetHisotoryQuery()
+
 	useEffect(() => {
-		refetch()
+		if (!history) {
+			refetch()
+			console.log('refetch');
+		}
 	}, [])
+
 	const [removeHistory] = useRemoveHistoryMutation()
 
 	const [localHistory, setLocalHistory] = useLocalStorage('history', []);
 
-	async function clearHistory() {
+	const clearHistory = async () => {
 		user ? await removeHistory() : setLocalHistory([])
 	}
 

@@ -1,7 +1,7 @@
-export function hexToRgb(hex: string) {
+export const hexToRgb = (hex: string) => {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+  hex = hex.replace(shorthandRegex, (m, r, g, b) => {
     return r + r + g + g + b + b;
   });
 
@@ -17,9 +17,9 @@ export function hexToRgb(hex: string) {
         g: 255,
         b: 255,
       };
-}
+};
 
-export function colourIsLight({
+export const colourIsLight = ({
   r,
   g,
   b,
@@ -27,9 +27,9 @@ export function colourIsLight({
   r: number;
   g: number;
   b: number;
-}) {
+}) => {
   // Counting the perceptive luminance
   // human eye favors green color...
   var a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return a < 0.5;
-}
+};

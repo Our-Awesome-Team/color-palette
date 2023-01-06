@@ -1,4 +1,4 @@
-export function UserCircleOutline(props: any) {
+export const UserCircleOutline = (props: any) => {
     return (
         <svg
             viewBox="0 0 24 24"
@@ -13,7 +13,7 @@ export function UserCircleOutline(props: any) {
     );
 }
 
-export function UserCircle(props: any) {
+export const UserCircle = (props: any) => {
     return (
         <svg
             viewBox="0 0 24 24"

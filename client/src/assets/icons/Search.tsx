@@ -1,4 +1,4 @@
-export function IconSearch(props: any) {
+export const IconSearch = (props: any) => {
     return (
         <svg
             viewBox="0 0 512 512"

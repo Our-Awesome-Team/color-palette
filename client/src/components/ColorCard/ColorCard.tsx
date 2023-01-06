@@ -1,6 +1,6 @@
 import { useAddFavoriteColorMutation, useRemoveFavoriteColorMutation } from '../../store/favorites/favoritesApi'
 import { Color } from '../../store/favorites/favoritesTypes'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppSelector } from '../../store/hooks'
 import styles from './ColorCard.module.scss'
 
 type Props = {

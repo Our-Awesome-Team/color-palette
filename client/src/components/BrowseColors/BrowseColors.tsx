@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './BrowseColors.module.scss';
 import { Color } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
@@ -7,12 +7,12 @@ import { IconWiRefresh } from '../../assets/icons/Refresh';
 import ColorCard from '../ColorCard/ColorCard';
 import SkeletonLoader from '../UI/SkeletonLoader';
 
-const BrowseColors: FC<{ title: string }> = ({ title }) => {
+const BrowseColors = ({ title }: { title: string }) => {
 	const [colors, setColors] = useState<Color[]>([]);
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(true);
 
-	function fetchColors() {
+	const fetchColors = () => {
 		axios
 			.get('https://www.colr.org/json/colors/random/100', {
 				params: {

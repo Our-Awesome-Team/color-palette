@@ -1,4 +1,4 @@
-export function IconEye(props: any) {
+export const IconEye = (props: any) => {
     return (
         <svg
             viewBox="0 0 24 24"
@@ -12,7 +12,7 @@ export function IconEye(props: any) {
     );
 }
 
-export function IconEyeOff(props: any) {
+export const IconEyeOff = (props: any) => {
     return (
         <svg
             viewBox="0 0 24 24"

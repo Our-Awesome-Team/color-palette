@@ -1,16 +1,16 @@
-export type Tag = {
+export interface Tag {
   id: number | string;
   name: string;
-};
+}
 
-export type Color = {
+export interface Color {
   id: number;
   hex: string;
   tags: Tag[];
-};
+}
 
-export type Scheme = {
+export interface Scheme {
   id: string | number;
   colors: string[];
   tags: Tag[];
-};
+}

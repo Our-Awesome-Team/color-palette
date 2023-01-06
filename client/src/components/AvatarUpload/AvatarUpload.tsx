@@ -21,9 +21,7 @@ const AvatarUpload = () => {
 
     const isFileValid = (file?: File) => {
         const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-
         if (!file) return false;
-
         return validTypes.includes(file.type);
     };
 
@@ -33,7 +31,6 @@ const AvatarUpload = () => {
             setIsSaved(false);
             setZoomlevel(1);
         }
-
         setError(!isFileValid(file));
     };
 
@@ -77,7 +74,7 @@ const AvatarUpload = () => {
     const [avatarFromServer, setAvatarFromServer] = useState(null)
     const { user } = useAppSelector(state => state.auth)
     useEffect(() => {
-        async function fetchAvatar() {
+        const fetchAvatar = async () => {
             try {
                 const res = await axios.get(`http://localhost:5000/api/upload/files/${user?.email}.jpg`,
                     {
@@ -105,7 +102,6 @@ const AvatarUpload = () => {
         } catch (error) {
             console.log(error);
         }
-
     }
 
     const renderChild = () => {
@@ -120,10 +116,12 @@ const AvatarUpload = () => {
                 />
             )
         }
+
         if (!isErrored && !imageFile)
             return (
                 <LogoInteractInfo inputRef={inputRef} onChangeInput={onChangeInput} />
             );
+
         if (!isErrored && imageFile && !isSaved)
             return (
                 <SelectedImageComponent
