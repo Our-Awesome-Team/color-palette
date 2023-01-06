@@ -7,10 +7,10 @@ import useDebounce from '../../../hooks/useDebounce';
 import { colourIsLight, hexToRgb } from '../../../utils/colorUtils';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import useLocalStorage from '../../../hooks/useLocalStorage';
-import { getHistory } from '../../../store/history/historySlice';
-import { Query } from '../../../store/history/historyTypes';
 import HistoryItem from '../../HistoryItem/HistoryItem';
 import { useSearch } from '../../../hooks/useSearch';
+import { IHistoryItem } from '../../../store/history/historyTypes';
+import { useGetHisotoryQuery } from '../../../store/history/historyApi';
 
 type SearchProps = {
 	fullSize?: boolean
@@ -23,7 +23,6 @@ const Search = ({ fullSize }: SearchProps) => {
 	const [colorsData, setColorsData] = useState<Color[]>([]);
 	const [schemesData, setSchemesData] = useState<Scheme[]>([])
 	const [searchParams, setSearchParams] = useSearchParams({});
-	const dispatch = useAppDispatch()
 
 	const { user } = useAppSelector(state => state.auth)
 
@@ -43,7 +42,7 @@ const Search = ({ fullSize }: SearchProps) => {
 				setSchemesData(response.data.schemes);
 			}
 		}
-		fetch(inputValue)
+		if (inputValue.length !== 0) fetch(inputValue)
 	}, [debouncedInput])
 
 
@@ -52,13 +51,7 @@ const Search = ({ fullSize }: SearchProps) => {
 	};
 
 
-	const { queries } = useAppSelector(
-		state => state.history
-	);
-
-	useEffect(() => {
-		dispatch(getHistory())
-	}, [])
+	const { data: history } = useGetHisotoryQuery()
 
 	const [localHistory, setLocalHistory] = useLocalStorage('history', [])
 
@@ -126,10 +119,10 @@ const Search = ({ fullSize }: SearchProps) => {
 				</div>
 					: <div className={styles.history}>
 						{user
-							? queries.slice().reverse().slice(0, 10).map(query => (
+							? history?.slice().reverse().slice(0, 10).map(query => (
 								<HistoryItem query={query} key={query.id} />
 							))
-							: localHistory.slice(0, 10).map((query: Query) => (
+							: localHistory.slice(0, 10).map((query: IHistoryItem) => (
 								<HistoryItem query={query} key={query.id} />
 							))}
 						<Link to='/history' onClick={() => setShowResults(false)} className={styles['show-more']}>

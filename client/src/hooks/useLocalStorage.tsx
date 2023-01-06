@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Query } from "../store/history/historyTypes";
+import { IHistoryItem } from "../store/history/historyTypes";
 
-export const useLocalStorage = (key: string, initialValue: Query | []) => {
+export const useLocalStorage = (key: string, initialValue: IHistoryItem | []) => {
     const [storedValue, setStoredValue] = useState(() => {
         try {
             const item = localStorage.getItem(key);
@@ -12,7 +12,7 @@ export const useLocalStorage = (key: string, initialValue: Query | []) => {
         }
     });
 
-    const setValue = (value: Query) => {
+    const setValue = (value: IHistoryItem) => {
         try {
             setStoredValue(value);
             window.localStorage.setItem(key, JSON.stringify(value));

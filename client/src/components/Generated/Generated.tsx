@@ -3,15 +3,15 @@ import Spinner from '../UI/Spinner/Spinner';
 import styles from './Generated.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Color, Scheme } from '../../store/favorites/favoritesTypes';
-import { addFavoriteColor, addFavoriteScheme } from '../../store/favorites/favoritesSlice';
+// import { addFavoriteColor, addFavoriteScheme } from '../../store/favorites/favoritesSlice';
 import { IconSparkles } from '../../assets/icons/Sparks';
 import axios from 'axios';
 import { IconHeart } from '../../assets/icons/Heart';
 import { colourIsLight, hexToRgb } from '../../utils/colorUtils';
+import { useAddFavoriteSchemeMutation } from '../../store/favorites/favoritesApi';
 
 
 const Generated = () => {
-	const dispatch = useAppDispatch();
 	const { user } = useAppSelector(state => state.auth);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState('')
@@ -40,9 +40,12 @@ const Generated = () => {
 		generate()
 	}, [])
 
+
+	const [addFavoriteScheme] = useAddFavoriteSchemeMutation()
+
 	const addScheme = (scheme?: Scheme) => {
 		if (scheme) {
-			dispatch(addFavoriteScheme(scheme))
+			addFavoriteScheme(scheme)
 		}
 	}
 
