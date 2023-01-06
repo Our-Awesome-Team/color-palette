@@ -1,12 +1,5 @@
 # Color Palette
 
-## .env
-
-NODE_ENV = development\
-PORT = 5000\
-MONGO_URI = mongodb+srv://admin:MQEbsdIWuiJZAN2c@cluster0.yelghep.mongodb.net/?retryWrites=true&w=majority\
-JWT_SECRET = jwtrandomsecret
-
 ## Install
 
 ```sh
