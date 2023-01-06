@@ -1,4 +1,4 @@
-# Color Palette
+# Color Palette (in development)
 
 ## Install
 
