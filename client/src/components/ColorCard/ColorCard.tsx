@@ -24,7 +24,7 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
     }
 
     return (
-        <div className={styles['color-card']} onClick={user ? (add ? addColor : removeColor) : undefined}>
+        <li className={styles['color-card']} onClick={user ? (add ? addColor : removeColor) : undefined}>
             <div
                 style={{ backgroundColor: `#${color.hex}` }}
                 className={styles.color}
@@ -35,7 +35,7 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
                 #{color.hex}
                 <div className={styles.tags}>{color.tags.map(tag => <span key={tag.id}>{tag.name}&nbsp;</span>)}</div>
             </span>
-        </div>
+        </li>
     )
 }
 

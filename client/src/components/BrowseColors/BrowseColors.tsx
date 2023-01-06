@@ -36,7 +36,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 						<h2>{title}</h2>
 						<IconWiRefresh className={styles.icon} onClick={fetchColors} />
 					</div>
-					<div className={styles.allColors}>
+					<ul className={styles.allColors}>
 						{loading ? (
 							<SkeletonLoader
 								count={100}
@@ -59,7 +59,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 								)}
 							</>
 						)}
-					</div>
+					</ul>
 				</>
 			}
 		</div>
