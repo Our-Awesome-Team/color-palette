@@ -7,11 +7,11 @@ import { Color, Scheme } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { v4 as uuid } from 'uuid';
-import { addHistoryItem } from '../../store/history/historySlice';
 import ColorCard from '../../components/ColorCard/ColorCard';
 import { IconHeart } from '../../assets/icons/Heart';
 import SchemeCard from '../../components/SchemeCard/SchemeCard';
 import Seo from '../../utils/Seo/Seo';
+import { useAddHistoryItemMutation } from '../../store/history/historyApi';
 
 const SearchPage = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -60,6 +60,8 @@ const SearchPage = () => {
 
 	const [storedValue, setValue] = useLocalStorage('history', []);
 
+	const [addHistoryItem] = useAddHistoryItemMutation()
+
 	function goSearch(title: URLSearchParams) {
 		navigate(`/search/?${title}`);
 		const query = {
@@ -68,7 +70,7 @@ const SearchPage = () => {
 			date: `${Date.now()}`,
 		};
 		if (user) {
-			dispatch(addHistoryItem(query));
+			addHistoryItem(query)
 		} else {
 			setValue([...storedValue, query]);
 		}

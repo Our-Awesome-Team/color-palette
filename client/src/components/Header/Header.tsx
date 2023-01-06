@@ -3,12 +3,15 @@ import styles from './Header.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout, reset } from '../../store/auth/authSlice';
 import Button from '../UI/Button/Button';
-import { MouseEvent, memo, useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import Search from '../UI/Search/Search';
 import { IconHeartOutline } from '../../assets/icons/Heart';
 import { UserCircleOutline } from '../../assets/icons/User';
 import { IconSearch } from '../../assets/icons/Search';
 import { IconHistory } from '../../assets/icons/History';
+import { favoritesApi } from '../../store/favorites/favoritesApi';
+import { historyApi } from '../../store/history/historyApi';
+
 
 const Header = () => {
 	const { pathname } = useLocation();
@@ -31,7 +34,9 @@ const Header = () => {
 	const dispatch = useAppDispatch();
 	const { user } = useAppSelector(state => state.auth);
 
-	const onLogout = () => {
+	const onLogout = async () => {
+		dispatch(favoritesApi.util.resetApiState())
+		dispatch(historyApi.util.resetApiState())
 		dispatch(logout());
 		dispatch(reset());
 		navigate('/');

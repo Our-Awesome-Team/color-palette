@@ -1,42 +1,50 @@
 .browseColors {
-	padding-bottom: 50px;
+  padding-bottom: 50px;
 
-	.titleBar {
-		display: flex;
-		align-items: center;
-		margin-bottom: 19px;
-		gap: 15px;
-		padding: 0 20px;
+  .titleBar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 19px;
+    gap: 15px;
+    padding: 0 20px;
 
-		> h2 {
-			font-size: 35px;
-			font-weight: 600;
-			height: 40px;
-		}
+    > h2 {
+      font-size: 35px;
+      font-weight: 600;
+      height: 40px;
+    }
 
-		.icon {
-			font-size: 33px;
-			background-color: #e4e4e4;
-			border-radius: 100%;
-			padding: 3px;
-			cursor: pointer;
+    .icon {
+      font-size: 33px;
+      background-color: #e4e4e4;
+      border-radius: 100%;
+      padding: 3px;
+      cursor: pointer;
 
-			&:hover {
-				background-color: #000000;
-				color: #ffffff;
-			}
+      &:hover {
+        background-color: #000000;
+        color: #ffffff;
+      }
 
-			&:active {
-				color: #dbdbdb;
-			}
-		}
-	}
+      &:active {
+        color: #dbdbdb;
+      }
+    }
+  }
 }
 
 .allColors {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	margin: auto;
-	gap: 5px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  gap: 5px;
+}
+
+.skeleton {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+  gap: 3px;
 }

@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
-import { addHistoryItem } from "../store/history/historySlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../store/hooks";
 import useLocalStorage from "./useLocalStorage";
+import { useAddHistoryItemMutation } from "../store/history/historyApi";
 
 
 export function useSearch() {
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
     const [localHistory, setLocalHistory] = useLocalStorage('history', [])
     const { user } = useAppSelector(state => state.auth)
+
+    const [addHistoryItem] = useAddHistoryItemMutation()
 
     function search(title: string | null) {
         document.body.style.overflow = 'auto'
@@ -20,7 +21,7 @@ export function useSearch() {
             date: `${Date.now()}`,
         };
         if (user) {
-            dispatch(addHistoryItem(query));
+            addHistoryItem(query);
         } else {
             setLocalHistory([query, ...localHistory]);
         }

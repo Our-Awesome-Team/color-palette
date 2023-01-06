@@ -1,20 +1,15 @@
 import { useEffect, useState } from 'react';
-import Spinner from '../UI/Spinner/Spinner';
 import styles from './Generated.module.scss';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Color, Scheme } from '../../store/favorites/favoritesTypes';
-import {
-	addFavoriteColor,
-	addFavoriteScheme,
-} from '../../store/favorites/favoritesSlice';
+import { useAppSelector } from '../../store/hooks';
+import { Scheme } from '../../store/favorites/favoritesTypes';
 import { IconSparkles } from '../../assets/icons/Sparks';
 import axios from 'axios';
 import { IconHeart } from '../../assets/icons/Heart';
 import { colourIsLight, hexToRgb } from '../../utils/colorUtils';
 import SkeletonLoader from '../UI/SkeletonLoader';
+import { useAddFavoriteSchemeMutation } from '../../store/favorites/favoritesApi';
 
 const Generated = () => {
-	const dispatch = useAppDispatch();
 	const { user } = useAppSelector(state => state.auth);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState('');
@@ -46,9 +41,12 @@ const Generated = () => {
 		generate();
 	}, []);
 
+
+	const [addFavoriteScheme] = useAddFavoriteSchemeMutation()
+
 	const addScheme = (scheme?: Scheme) => {
 		if (scheme) {
-			dispatch(addFavoriteScheme(scheme));
+			addFavoriteScheme(scheme)
 		}
 	};
 
@@ -58,7 +56,7 @@ const Generated = () => {
 				{loading ? (
 					<SkeletonLoader
 						count={5}
-						style={{ paddingBottom: '20%', margin: '0 1px' }}
+						style={{ paddingBottom: '18.5%' }}
 						containerClassName={styles.colors}
 					/>
 				) : (
@@ -71,9 +69,8 @@ const Generated = () => {
 							>
 								<h2
 									style={{
-										color: `${
-											colourIsLight(hexToRgb(color)) ? '#000' : '#fff'
-										}`,
+										color: `${colourIsLight(hexToRgb(color)) ? '#000' : '#fff'
+											}`,
 									}}
 								>
 									#{color}

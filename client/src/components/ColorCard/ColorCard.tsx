@@ -1,4 +1,4 @@
-import { addFavoriteColor, deleteFavoriteColor } from '../../store/favorites/favoritesSlice'
+import { useAddFavoriteColorMutation, useRemoveFavoriteColorMutation } from '../../store/favorites/favoritesApi'
 import { Color } from '../../store/favorites/favoritesTypes'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import styles from './ColorCard.module.scss'
@@ -10,15 +10,17 @@ type Props = {
 }
 
 const ColorCard = ({ color, Icon, add = false }: Props) => {
-    const dispatch = useAppDispatch()
     const { user } = useAppSelector(state => state.auth)
 
-    const addColor = () => {
-        dispatch(addFavoriteColor(color))
+    const [addFavoriteColor] = useAddFavoriteColorMutation()
+    const [removeFavoriteColor] = useRemoveFavoriteColorMutation()
+
+    const addColor = async () => {
+        await addFavoriteColor(color)
     }
 
-    const removeColor = () => {
-        dispatch(deleteFavoriteColor(color.id))
+    const removeColor = async () => {
+        await removeFavoriteColor(color.id)
     }
 
     return (

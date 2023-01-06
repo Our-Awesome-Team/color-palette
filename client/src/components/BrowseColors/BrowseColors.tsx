@@ -39,10 +39,10 @@ const BrowseColors: FC<{ title: string }> = ({ title }) => {
 					<div className={styles.allColors}>
 						{loading ? (
 							<SkeletonLoader
-								count={45}
-								width={110}
-								height={130}
-								containerClassName={styles.allColors}
+								count={100}
+								width={109.5}
+								height={130.5}
+								containerClassName={styles.skeleton}
 							/>
 						) : (
 							<>
