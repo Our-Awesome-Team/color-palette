@@ -45,22 +45,53 @@ const Favorites = () => {
 		<>
 			<Seo title="Favorite" description="Look at your favorites colors!" />
 			<div className={styles.favorites}>
-				{loading ? <Spinner /> :
+				{loading ? (
+					<Spinner />
+				) : (
 					<>
 						<h2>Schemes</h2>
-						<section className={styles.schemes}>
-							{favoriteSchemes.slice().reverse().map((scheme) =>
-								<SchemeCard key={scheme.id} scheme={scheme} Icon={IconHeartCircleMinus} />
-							)}
-						</section>
+						{favoriteSchemes.length ? (
+							<>
+								<section className={styles.schemes}>
+									{favoriteSchemes
+										.slice()
+										.reverse()
+										.map(scheme => (
+											<SchemeCard
+												key={scheme.id}
+												scheme={scheme}
+												Icon={IconHeartCircleMinus}
+											/>
+										))}
+								</section>
+							</>
+						) : (
+							<h3>You don't have favorites schemes yet</h3>
+						)}
 						<h2>Colors</h2>
-						<section className={styles.colors}>
-							{favoriteColors.slice().reverse().map((color) =>
-								<ColorCard color={color} Icon={IconHeartCircleMinus} key={color.id} />
-							)}
-						</section>
+						{favoriteColors.length ? (
+							<>
+								<section className={styles.colors}>
+									{favoriteColors
+										.slice()
+										.reverse()
+										.map(color => (
+											<ColorCard
+												color={color}
+												Icon={IconHeartCircleMinus}
+												key={color.id}
+											/>
+										))}
+								</section>
+							</>
+						) : (
+							<h3>You don't have favorites schemes yet</h3>
+						)}
+						<div className={styles.btn}>
+							<button onClick={() => navigate(-1)}>Go back</button>
+						</div>
 					</>
-				}
+				)}
 			</div>
 		</>
 	);
