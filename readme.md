@@ -3,12 +3,12 @@
 ## Install
 
 ```sh
-## from root folder
+# from root folder
 npm install
 ```
 
 ```sh
-## from client folder
+# from client folder
 cd client
 npm install
 ```
@@ -16,7 +16,7 @@ npm install
 ## Run
 
 ```sh
-## from root folder
+# from root folder
 npm run dev
 ```
 
