@@ -4,7 +4,6 @@ import { IconHeart } from '../../assets/icons/Heart';
 import { IconWiRefresh } from '../../assets/icons/Refresh';
 import ColorCard from '../ColorCard/ColorCard';
 import SkeletonLoader from '../UI/SkeletonLoader';
-import { v4 as uuid } from 'uuid'
 import useColorsApi from '../../hooks/useColorsApi';
 
 const BrowseColors = ({ title }: { title: string }) => {
