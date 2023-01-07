@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid'
 import { useAddFavoriteColorMutation, useRemoveFavoriteColorMutation } from '../../store/favorites/favoritesApi'
 import { Color } from '../../store/favorites/favoritesTypes'
 import { useAppSelector } from '../../store/hooks'
@@ -33,7 +34,7 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
             </div>
             <span className={styles.hex}>
                 #{color.hex}
-                <div className={styles.tags}>{color.tags.map(tag => <span key={tag.id}>{tag.name}&nbsp;</span>)}</div>
+                <div className={styles.tags}>{color.tags.map(tag => <span key={uuid()}>{tag.name}&nbsp;</span>)}</div>
             </span>
         </li>
     )

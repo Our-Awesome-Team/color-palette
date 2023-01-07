@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { Fragment, ReactNode, SyntheticEvent, UIEvent, useEffect, useId, useRef, useState } from 'react';
 import styles from './BrowseColors.module.scss';
 import { Color } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
@@ -6,15 +6,13 @@ import { IconHeart } from '../../assets/icons/Heart';
 import { IconWiRefresh } from '../../assets/icons/Refresh';
 import ColorCard from '../ColorCard/ColorCard';
 import SkeletonLoader from '../UI/SkeletonLoader';
+import { v4 as uuid } from 'uuid'
 
 const BrowseColors = ({ title }: { title: string }) => {
 	const [colors, setColors] = useState<Color[]>([]);
-
-
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(true);
 	const [loadingExtra, setLoadingExtra] = useState(false);
-	// const [currentColors, setCurrentColors] = useState(100);
 
 	useEffect(() => {
 		document.addEventListener('scroll', scrollHandler);
@@ -39,11 +37,10 @@ const BrowseColors = ({ title }: { title: string }) => {
 			});
 	}
 
-
-	const scrollHandler = (e: any) => {
+	const scrollHandler = (): void => {
 		if (
-			e.target.documentElement.scrollHeight -
-			(e.target.documentElement.scrollTop + window.innerHeight) <
+			document.documentElement.scrollHeight -
+			(document.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
 			setLoadingExtra(true)
@@ -58,7 +55,6 @@ const BrowseColors = ({ title }: { title: string }) => {
 				},
 			})
 			.then(res => setColors(res.data.colors))
-			// .then(() => setCurrentColors(prev => prev + 100))
 			.catch(err => setError(err))
 			.finally(() => {
 				setLoading(false);
@@ -99,7 +95,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 												color={color}
 												Icon={IconHeart}
 												add
-												key={color.id}
+												key={uuid()}
 											/>
 										)
 								)}
