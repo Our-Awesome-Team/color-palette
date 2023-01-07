@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, SyntheticEvent, UIEvent, useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './BrowseColors.module.scss';
 import { Color } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
