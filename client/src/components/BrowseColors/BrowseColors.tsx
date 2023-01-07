@@ -45,11 +45,12 @@ const BrowseColors = ({ title }: { title: string }) => {
 								containerClassName={styles.skeleton}
 							/>
 						) : (
-							<Fragment data-testid="color-cards">
+							<>
 								{colors.map(
 									color =>
 										color.hex && (
 											<ColorCard
+												data-testid="color-card"
 												color={color}
 												Icon={IconHeart}
 												add
@@ -57,7 +58,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 											/>
 										)
 								)}
-							</Fragment>
+							</>
 						)}
 					</ul>
 				</>
