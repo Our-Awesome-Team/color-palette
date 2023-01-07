@@ -5,6 +5,7 @@ import { IconWiRefresh } from '../../assets/icons/Refresh';
 import ColorCard from '../ColorCard/ColorCard';
 import SkeletonLoader from '../UI/SkeletonLoader';
 import useColorsApi from '../../hooks/useColorsApi';
+import { v4 as uuid } from 'uuid'
 
 const BrowseColors = ({ title }: { title: string }) => {
 	const { colors, loading, setLoadingExtra, fetchColors } = useColorsApi()
