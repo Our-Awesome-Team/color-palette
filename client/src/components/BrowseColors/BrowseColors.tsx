@@ -21,10 +21,10 @@ const BrowseColors = ({ title }: { title: string }) => {
 		};
 	}, []);
 
-	const scrollHandler = (e: any) => {
+	const scrollHandler = (): void => {
 		if (
-			e.target.documentElement.scrollHeight -
-				(e.target.documentElement.scrollTop + window.innerHeight) <
+			document.documentElement.scrollHeight -
+				(document.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
 			setLoading(true);
