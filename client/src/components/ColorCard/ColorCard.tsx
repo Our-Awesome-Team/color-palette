@@ -5,7 +5,7 @@ import styles from './ColorCard.module.scss'
 
 type Props = {
     color: Color
-    Icon: React.ElementType
+    Icon?: React.ElementType
     add?: boolean
 }
 
@@ -29,7 +29,7 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
                 style={{ backgroundColor: `#${color.hex}` }}
                 className={styles.color}
             >
-                {user && <Icon className={styles.icon} />}
+                {user && Icon && <Icon className={styles.icon} />}
             </div>
             <span className={styles.hex}>
                 #{color.hex}
