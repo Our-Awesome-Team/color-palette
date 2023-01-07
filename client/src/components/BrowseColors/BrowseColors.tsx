@@ -9,9 +9,11 @@ import SkeletonLoader from '../UI/SkeletonLoader';
 
 const BrowseColors = ({ title }: { title: string }) => {
 	const [colors, setColors] = useState<Color[]>([]);
+	const [extraColors, setExtraColors] = useState<Color[]>([]);
+
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(true);
-	const [currentColors, setCurrentColors] = useState(100);
+	// const [currentColors, setCurrentColors] = useState(100);
 
 	useEffect(() => {
 		document.addEventListener('scroll', scrollHandler);
@@ -21,25 +23,39 @@ const BrowseColors = ({ title }: { title: string }) => {
 		};
 	}, []);
 
+	const fetchExtraColors = () => {
+		axios
+			.get(`https://www.colr.org/json/colors/random/100`, {
+				params: {
+					t: new Date().getTime(),
+				},
+			})
+			.then(res => setColors([...colors, res.data.colors]))
+			.catch(err => setError(err))
+			.finally(() => {
+				setLoading(false);
+			});
+	}
+
 	const scrollHandler = (e: any) => {
 		if (
 			e.target.documentElement.scrollHeight -
-				(e.target.documentElement.scrollTop + window.innerHeight) <
+			(e.target.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
-			setLoading(true);
+			fetchExtraColors()
 		}
 	};
 
 	const fetchColors = () => {
 		axios
-			.get(`https://www.colr.org/json/colors/random/${currentColors}`, {
+			.get(`https://www.colr.org/json/colors/random/100`, {
 				params: {
 					t: new Date().getTime(),
 				},
 			})
 			.then(res => setColors(res.data.colors))
-			.then(() => setCurrentColors(prev => prev + 100))
+			// .then(() => setCurrentColors(prev => prev + 100))
 			.catch(err => setError(err))
 			.finally(() => {
 				setLoading(false);
@@ -47,10 +63,10 @@ const BrowseColors = ({ title }: { title: string }) => {
 	};
 
 	useEffect(() => {
-		if (loading) {
-			fetchColors();
-		}
-	}, [loading]);
+		// if (loading) {
+		fetchColors();
+		// }
+	}, []);
 
 	return (
 		<div className={styles.browseColors}>
