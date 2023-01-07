@@ -17,10 +17,10 @@ const BrowseColors = ({ title }: { title: string }) => {
 	// const [currentColors, setCurrentColors] = useState(100);
 
 	useEffect(() => {
-		document.body.addEventListener('scroll', scrollHandler);
+		document.addEventListener('scroll', scrollHandler);
 
 		return () => {
-			document.body.removeEventListener('scroll', scrollHandler);
+			document.removeEventListener('scroll', scrollHandler);
 		};
 	}, []);
 
@@ -42,8 +42,8 @@ const BrowseColors = ({ title }: { title: string }) => {
 
 	const scrollHandler = (e: any) => {
 		if (
-			e.target.document.scrollHeight -
-			(e.target.document.scrollTop + window.innerHeight) <
+			e.target.documentElement.scrollHeight -
+			(e.target.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
 			setLoadingExtra(true)
