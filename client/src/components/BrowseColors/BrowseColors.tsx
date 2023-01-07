@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import styles from './BrowseColors.module.scss';
 import { Color } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
@@ -11,22 +11,46 @@ const BrowseColors = ({ title }: { title: string }) => {
 	const [colors, setColors] = useState<Color[]>([]);
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(true);
+	const [currentColors, setCurrentColors] = useState(100);
+
+	useEffect(() => {
+		document.addEventListener('scroll', scrollHandler);
+
+		return () => {
+			document.removeEventListener('scroll', scrollHandler);
+		};
+	}, []);
+
+	const scrollHandler = (e: any) => {
+		if (
+			e.target.documentElement.scrollHeight -
+				(e.target.documentElement.scrollTop + window.innerHeight) <
+			100
+		) {
+			setLoading(true);
+		}
+	};
 
 	const fetchColors = () => {
 		axios
-			.get('https://www.colr.org/json/colors/random/100', {
+			.get(`https://www.colr.org/json/colors/random/${currentColors}`, {
 				params: {
 					t: new Date().getTime(),
 				},
 			})
 			.then(res => setColors(res.data.colors))
+			.then(() => setCurrentColors(prev => prev + 100))
 			.catch(err => setError(err))
-			.finally(() => setLoading(false));
-	}
+			.finally(() => {
+				setLoading(false);
+			});
+	};
 
 	useEffect(() => {
-		fetchColors();
-	}, []);
+		if (loading) {
+			fetchColors();
+		}
+	}, [loading]);
 
 	return (
 		<div className={styles.browseColors}>
