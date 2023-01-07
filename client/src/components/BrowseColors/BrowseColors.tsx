@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 import styles from './BrowseColors.module.scss';
 import { Color } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
@@ -9,17 +9,18 @@ import SkeletonLoader from '../UI/SkeletonLoader';
 
 const BrowseColors = ({ title }: { title: string }) => {
 	const [colors, setColors] = useState<Color[]>([]);
-	const [extraColors, setExtraColors] = useState<Color[]>([]);
+
 
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(true);
+	const [loadingExtra, setLoadingExtra] = useState(false);
 	// const [currentColors, setCurrentColors] = useState(100);
 
 	useEffect(() => {
-		document.addEventListener('scroll', scrollHandler);
+		document.body.addEventListener('scroll', scrollHandler);
 
 		return () => {
-			document.removeEventListener('scroll', scrollHandler);
+			document.body.removeEventListener('scroll', scrollHandler);
 		};
 	}, []);
 
@@ -30,20 +31,22 @@ const BrowseColors = ({ title }: { title: string }) => {
 					t: new Date().getTime(),
 				},
 			})
-			.then(res => setColors([...colors, res.data.colors]))
+			.then(res => setColors([...colors, ...res.data.colors]))
 			.catch(err => setError(err))
 			.finally(() => {
-				setLoading(false);
+				setLoadingExtra(false)
+
 			});
 	}
 
+
 	const scrollHandler = (e: any) => {
 		if (
-			e.target.documentElement.scrollHeight -
-			(e.target.documentElement.scrollTop + window.innerHeight) <
+			e.target.document.scrollHeight -
+			(e.target.document.scrollTop + window.innerHeight) <
 			100
 		) {
-			fetchExtraColors()
+			setLoadingExtra(true)
 		}
 	};
 
@@ -63,10 +66,12 @@ const BrowseColors = ({ title }: { title: string }) => {
 	};
 
 	useEffect(() => {
-		// if (loading) {
 		fetchColors();
-		// }
 	}, []);
+
+	useEffect(() => {
+		if (loadingExtra) fetchExtraColors();
+	}, [loadingExtra]);
 
 	return (
 		<div className={styles.browseColors}>
