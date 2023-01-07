@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import styles from './BrowseColors.module.scss';
 import { Color } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
@@ -45,7 +45,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 								containerClassName={styles.skeleton}
 							/>
 						) : (
-							<>
+							<Fragment data-testid="color-cards">
 								{colors.map(
 									color =>
 										color.hex && (
@@ -57,7 +57,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 											/>
 										)
 								)}
-							</>
+							</Fragment>
 						)}
 					</ul>
 				</>
