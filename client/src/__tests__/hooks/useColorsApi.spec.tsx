@@ -7,7 +7,7 @@ describe('useColorsApi hook', () => {
     await act(async () => {
       result.current.fetchColors();
     });
-    console.log(result.current)
+    expect(result.current.colors).not.toEqual([])
     unmount()
   });
 });
