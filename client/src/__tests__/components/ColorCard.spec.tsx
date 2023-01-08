@@ -14,6 +14,10 @@ const ReduxProvider = ({ children, reduxStore }: ReduxProviderProps) => (
     <Provider store={reduxStore}>{children}</Provider>
 )
 
+const wrapper = (children: JSX.Element) => (
+    <ReduxProvider reduxStore={store}>{children}</ReduxProvider>
+);
+
 const color: Color = {
     id: 123,
     hex: '#ffffff',
@@ -22,10 +26,6 @@ const color: Color = {
 
 describe('ColorCard component', () => {
     it("Renders ColorCard", async () => {
-        const wrapper = (children: JSX.Element) => (
-            <ReduxProvider reduxStore={store}>{children}</ReduxProvider>
-        );
-
         render(wrapper(<ColorCard color={color} />));
         expect(await screen.findByText(/#/)).toBeInTheDocument();
     });

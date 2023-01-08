@@ -9,30 +9,21 @@ const useColorsApi = () => {
     const [loadingExtra, setLoadingExtra] = useState(false);
 
     const fetchColors = () => {
-        axios
-            .get('https://www.colr.org/json/colors/random/100', {
-                params: {
-                    t: new Date().getTime(),
-                },
-            })
+        axios.get('https://www.colr.org/json/colors/random/100', {
+            params: { t: new Date().getTime() },
+        })
             .then(res => setColors(res.data.colors))
             .catch(err => setError(err))
             .finally(() => setLoading(false));
     }
 
     const fetchExtraColors = () => {
-        axios
-            .get(`https://www.colr.org/json/colors/random/100`, {
-                params: {
-                    t: new Date().getTime(),
-                },
-            })
+        axios.get('https://www.colr.org/json/colors/random/100', {
+            params: { t: new Date().getTime() },
+        })
             .then(res => setColors([...colors, ...res.data.colors]))
             .catch(err => setError(err))
-            .finally(() => {
-                setLoadingExtra(false)
-
-            });
+            .finally(() => setLoadingExtra(false));
     }
 
     useEffect(() => {
