@@ -1,17 +1,14 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import styles from './BrowseColors.module.scss';
-import { Color } from '../../store/favorites/favoritesTypes';
-import axios from 'axios';
 import { IconHeart } from '../../assets/icons/Heart';
 import { IconWiRefresh } from '../../assets/icons/Refresh';
 import ColorCard from '../ColorCard/ColorCard';
 import SkeletonLoader from '../UI/SkeletonLoader';
+import { v4 as uuid } from 'uuid'
+import useColorsApi from '../../hooks/useColorsApi';
 
 const BrowseColors = ({ title }: { title: string }) => {
-	const [colors, setColors] = useState<Color[]>([]);
-	const [error, setError] = useState();
-	const [loading, setLoading] = useState(true);
-	const [currentColors, setCurrentColors] = useState(100);
+	const { colors, loading, setLoadingExtra, fetchColors } = useColorsApi()
 
 	useEffect(() => {
 		document.addEventListener('scroll', scrollHandler);
@@ -21,36 +18,15 @@ const BrowseColors = ({ title }: { title: string }) => {
 		};
 	}, []);
 
-	const scrollHandler = (e: any) => {
+	const scrollHandler = (): void => {
 		if (
-			e.target.documentElement.scrollHeight -
-				(e.target.documentElement.scrollTop + window.innerHeight) <
+			document.documentElement.scrollHeight -
+			(document.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
-			setLoading(true);
+			setLoadingExtra(true)
 		}
 	};
-
-	const fetchColors = () => {
-		axios
-			.get(`https://www.colr.org/json/colors/random/${currentColors}`, {
-				params: {
-					t: new Date().getTime(),
-				},
-			})
-			.then(res => setColors(res.data.colors))
-			.then(() => setCurrentColors(prev => prev + 100))
-			.catch(err => setError(err))
-			.finally(() => {
-				setLoading(false);
-			});
-	};
-
-	useEffect(() => {
-		if (loading) {
-			fetchColors();
-		}
-	}, [loading]);
 
 	return (
 		<div className={styles.browseColors}>
@@ -78,7 +54,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 												color={color}
 												Icon={IconHeart}
 												add
-												key={color.id}
+												key={uuid()}
 											/>
 										)
 								)}
