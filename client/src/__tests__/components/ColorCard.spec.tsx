@@ -6,7 +6,7 @@ import { wrapper } from "../../providers/reduxProvider";
 
 const color: Color = {
     id: 123,
-    hex: '#ffffff',
+    hex: 'ffffff',
     tags: [{ id: 123, name: 'white' }]
 }
 

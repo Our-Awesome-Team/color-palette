@@ -11,7 +11,7 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 if (process.env.NODE_ENV === 'development') {
-	const { worker } = require('./mocks/browser')
+	const { worker } = require('./__mocks__/browser')
 	worker.start()
 }
 

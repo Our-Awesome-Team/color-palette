@@ -6,7 +6,7 @@ import SchemeCard from "../../components/SchemeCard/SchemeCard";
 
 const scheme: Scheme = {
     id: 123,
-    colors: ['#ffffff', '#ffffff', '#ffffff'],
+    colors: ['ffffff', 'ffffff', 'ffffff'],
     tags: [{ id: "123", name: 'white' }]
 }
 
