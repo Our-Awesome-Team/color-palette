@@ -4,8 +4,8 @@ import { IconHeart } from '../../assets/icons/Heart';
 import { IconWiRefresh } from '../../assets/icons/Refresh';
 import ColorCard from '../ColorCard/ColorCard';
 import SkeletonLoader from '../UI/SkeletonLoader';
-import { v4 as uuid } from 'uuid'
 import useColorsApi from '../../hooks/useColorsApi';
+import { v4 as uuid } from 'uuid'
 
 const BrowseColors = ({ title }: { title: string }) => {
 	const { colors, loading, setLoadingExtra, fetchColors } = useColorsApi()
@@ -34,7 +34,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 				<>
 					<div className={styles.titleBar}>
 						<h2>{title}</h2>
-						<IconWiRefresh className={styles.icon} onClick={fetchColors} />
+						<IconWiRefresh className={styles.icon} onClick={fetchColors} data-testid='refresh' />
 					</div>
 					<ul className={styles.allColors}>
 						{loading ? (
@@ -43,10 +43,11 @@ const BrowseColors = ({ title }: { title: string }) => {
 								width={109.5}
 								height={130.5}
 								containerClassName={styles.skeleton}
+								data-testid='skeleton'
 							/>
 						) : (
 							<>
-								{colors.map(
+								{colors?.map(
 									color =>
 										color.hex && (
 											<ColorCard
