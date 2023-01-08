@@ -21,7 +21,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 	const scrollHandler = (): void => {
 		if (
 			document.documentElement.scrollHeight -
-			(document.documentElement.scrollTop + window.innerHeight) <
+				(document.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
 			setLoadingExtra(true)
