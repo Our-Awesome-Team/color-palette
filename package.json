@@ -8,6 +8,7 @@
     "client:dev": "npm start --prefix client",
     "client:build": "npm build --prefix client",
     "client:test": "npm test --prefix client",
+    "storybook": "npm run storybook --prefix client",
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\""
   },
   "license": "MIT",
