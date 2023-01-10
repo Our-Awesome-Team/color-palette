@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout, reset } from '../../store/auth/authSlice';
 import Button from '../UI/Button/Button';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import Search from '../UI/Search/Search';
 import { IconHeartOutline } from '../../assets/icons/Heart';
 import { UserCircleOutline } from '../../assets/icons/User';

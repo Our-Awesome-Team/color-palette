@@ -1,6 +1,4 @@
-import { memo } from "react";
-
-export const IconWiRefresh = memo((props: any) => {
+export const IconWiRefresh = (props: any) => {
     return (
         <svg
             fill="none"
@@ -17,4 +15,4 @@ export const IconWiRefresh = memo((props: any) => {
             <path d="M20 11A8.1 8.1 0 004.5 9M4 5v4h4M4 13a8.1 8.1 0 0015.5 2m.5 4v-4h-4" />
         </svg>
     );
-})
+}

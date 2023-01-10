@@ -15,6 +15,7 @@ import { v4 as uuid } from 'uuid';
 
 const Generated = () => {
 	const { user } = useAppSelector(state => state.auth);
+
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState('');
 	const [generatedScheme, setGeneratedScheme] = useState<Scheme | undefined>();

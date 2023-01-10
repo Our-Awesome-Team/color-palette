@@ -1,3 +1,5 @@
+
+
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import MainLayout from './components/Layout/MainLayout';
@@ -14,24 +16,19 @@ const Signup = lazy(() => import('./pages/SignupPage/SignupPage'));
 
 const App = () => {
 	return (
-		<>
-			<MainLayout>
+		<MainLayout>
+			<Suspense fallback={<Spinner />}>
 				<Routes>
-					<Route path="/" element={<Home />} />
+					<Route index element={<Home />} />
+					<Route path="/signin" element={<Signin />} />
+					<Route path="/signup" element={<Signup />} />
+					<Route path="/favorites" element={<Favorites />} />
+					<Route path="/user" element={<User />} />
+					<Route path="/history" element={<History />} />
+					<Route path="/search" element={<SearchPage />} />
 				</Routes>
-				<Suspense fallback={<Spinner />}>
-					<Routes>
-						<Route path="/signin" element={<Signin />} />
-						<Route path="/signup" element={<Signup />} />
-						<Route path="/favorites" element={<Favorites />} />
-						<Route path="/user" element={<User />} />
-						<Route path="/history" element={<History />} />
-						<Route path="/search" element={<SearchPage />} />
-						<Route path="*" element={<NotFound />} />
-					</Routes>
-				</Suspense>
-			</MainLayout>
-		</>
+			</Suspense>
+		</MainLayout>
 	);
 };
 

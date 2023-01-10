@@ -26,7 +26,7 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
     }
 
     return (
-        <li className={styles['color-card']} onClick={user ? (add ? addColor : removeColor) : undefined}>
+        <li className={styles['color-card']} onClick={user ? (add ? addColor : removeColor) : undefined} data-test-id="color-card">
             <div
                 style={{ backgroundColor: `#${color.hex}` }}
                 className={styles.color}
