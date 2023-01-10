@@ -21,7 +21,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 	const scrollHandler = (): void => {
 		if (
 			document.documentElement.scrollHeight -
-				(document.documentElement.scrollTop + window.innerHeight) <
+			(document.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
 			setLoadingExtra(true)
@@ -34,7 +34,7 @@ const BrowseColors = ({ title }: { title: string }) => {
 				<>
 					<div className={styles.titleBar}>
 						<h2>{title}</h2>
-						<IconWiRefresh className={styles.icon} onClick={fetchColors} data-testid='refresh' />
+						<IconWiRefresh className={styles.icon} onClick={fetchColors} data-test-id='refresh' />
 					</div>
 					<ul className={styles.allColors}>
 						{loading ? (
@@ -51,7 +51,6 @@ const BrowseColors = ({ title }: { title: string }) => {
 									color =>
 										color.hex && (
 											<ColorCard
-												data-testid="color-card"
 												color={color}
 												Icon={IconHeart}
 												add

@@ -3,6 +3,7 @@ import { useAddFavoriteColorMutation, useRemoveFavoriteColorMutation } from '../
 import { Color } from '../../store/favorites/favoritesTypes'
 import { useAppSelector } from '../../store/hooks'
 import styles from './ColorCard.module.scss'
+import { memo } from 'react'
 
 type Props = {
     color: Color
@@ -25,7 +26,7 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
     }
 
     return (
-        <li className={styles['color-card']} onClick={user ? (add ? addColor : removeColor) : undefined}>
+        <li className={styles['color-card']} onClick={user ? (add ? addColor : removeColor) : undefined} data-test-id="color-card">
             <div
                 style={{ backgroundColor: `#${color.hex}` }}
                 className={styles.color}
@@ -40,4 +41,4 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
     )
 }
 
-export default ColorCard
+export default memo(ColorCard)

@@ -10,11 +10,6 @@ import { HelmetProvider } from 'react-helmet-async';
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-if (process.env.NODE_ENV === 'development') {
-	const { worker } = require('./__mocks__/browser')
-	worker.start()
-}
-
 root.render(
 	<HelmetProvider>
 		<Router>

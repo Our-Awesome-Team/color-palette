@@ -1,40 +1,33 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import styles from './SearchPage.module.scss';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import useDebounce from '../../hooks/useDebounce';
-import { useAppSelector } from '../../store/hooks';
 import { Color, Scheme } from '../../store/favorites/favoritesTypes';
 import axios from 'axios';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { v4 as uuid } from 'uuid';
 import ColorCard from '../../components/ColorCard/ColorCard';
 import { IconHeart } from '../../assets/icons/Heart';
 import SchemeCard from '../../components/SchemeCard/SchemeCard';
 import Seo from '../../utils/Seo/Seo';
-import { useAddHistoryItemMutation } from '../../store/history/historyApi';
+import { useSearch } from '../../hooks/useSearch';
 
 const SearchPage = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setInputValue(searchParams.get('query') ? searchParams.get('query')! : '');
 		inputRef?.current?.focus();
 	}, []);
+
 	const [inputValue, setInputValue] = useState('');
 	const debouncedInput = useDebounce(inputValue, 400);
 
+	useEffect(() => {
+		setSearchParams(inputValue && { query: inputValue });
+	}, [inputValue]);
+
 	const [colorsData, setColorsData] = useState<Color[]>([]);
 	const [schemesData, setSchemesData] = useState<Scheme[]>([]);
-
-	console.log(schemesData)
-
-
-	const { user } = useAppSelector(state => state.auth);
-
-	useEffect(() => {
-		setSearchParams(inputValue && { query: inputValue }, { replace: true });
-	}, [inputValue]);
 
 	useEffect(() => {
 		const fetch = async (query: string) => {
@@ -55,25 +48,7 @@ const SearchPage = () => {
 		setInputValue(e.target.value);
 	};
 
-	const navigate = useNavigate();
-
-	const [storedValue, setValue] = useLocalStorage('history', []);
-
-	const [addHistoryItem] = useAddHistoryItemMutation()
-
-	const goSearch = (title: URLSearchParams) => {
-		navigate(`/search/?${title}`);
-		const query = {
-			id: uuid(),
-			title: title.get('query') || 'untitled',
-			date: `${Date.now()}`,
-		};
-		if (user) {
-			addHistoryItem(query)
-		} else {
-			setValue([...storedValue, query]);
-		}
-	}
+	const search = useSearch()
 
 	return (
 		<>
@@ -89,7 +64,7 @@ const SearchPage = () => {
 					value={inputValue}
 					onChange={changeInput}
 					ref={inputRef}
-					onKeyDown={e => e.key === 'Enter' && goSearch(searchParams)}
+					onKeyDown={e => (e.key === 'Enter') && search(searchParams.get('query'))}
 				/>
 				{!!colorsData?.length && (
 					<div className={styles.results}>
