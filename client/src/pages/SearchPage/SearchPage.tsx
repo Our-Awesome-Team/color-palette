@@ -10,6 +10,11 @@ import SchemeCard from '../../components/SchemeCard/SchemeCard';
 import Seo from '../../utils/Seo/Seo';
 import { useSearch } from '../../hooks/useSearch';
 
+// Оптимизаци. Сделать так, чтобы цвета не отрисовывались все сразу, потому чот их может быть очень много. 
+// Отрисовывать, например, 100, а остальные уже по кнопке "больше" или по скроллу
+
+// Раскидать логику по хукам
+
 const SearchPage = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [searchParams, setSearchParams] = useSearchParams();

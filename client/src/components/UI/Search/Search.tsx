@@ -12,6 +12,8 @@ import { useSearch } from '../../../hooks/useSearch';
 import { IHistoryItem } from '../../../store/history/historyTypes';
 import { useGetHisotoryQuery } from '../../../store/history/historyApi';
 
+// Раскидать логику по хукам
+
 type SearchProps = {
 	fullSize?: boolean
 }
