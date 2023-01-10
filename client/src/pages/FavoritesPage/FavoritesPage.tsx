@@ -35,7 +35,7 @@ const Favorites = () => {
 				<h2>Schemes</h2>
 				{isSchemesLoading
 					? <Spinner />
-					: isSchemesError ? <h3>Can't get schemes</h3>
+					: isSchemesError ? <h3 className={styles['dont-have']} >Can't get schemes</h3>
 						: <>
 							{favoriteSchemes?.length ? (
 								<section className={styles.schemes}>
@@ -51,14 +51,14 @@ const Favorites = () => {
 										))}
 								</section>
 							) : (
-								<h3>You don't have favorites schemes yet</h3>
+								<h3 className={styles['dont-have']}>You don't have favorites schemes yet</h3>
 							)}
 						</>
 				}
 				<h2>Colors</h2>
 				{isColorsLoading
 					? <Spinner />
-					: isColorsError ? <h3>Can't get colors</h3>
+					: isColorsError ? <h3 className={styles['dont-have']}>Can't get colors</h3>
 						: <>
 							{favoriteColors?.length ? (
 								<section className={styles.colors}>
@@ -74,7 +74,7 @@ const Favorites = () => {
 										))}
 								</section>
 							) : (
-								<h3>You don't have favorites schemes yet</h3>
+								<h3 className={styles['dont-have']}>You don't have favorites schemes yet</h3>
 							)}
 						</>
 				}
