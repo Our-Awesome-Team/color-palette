@@ -10,9 +10,6 @@ import SchemeCard from '../../components/SchemeCard/SchemeCard';
 import Seo from '../../utils/Seo/Seo';
 import { useSearch } from '../../hooks/useSearch';
 
-// Оптимизаци. Сделать так, чтобы цвета не отрисовывались все сразу, потому чот их может быть очень много. 
-// Отрисовывать, например, 100, а остальные уже по кнопке "больше" или по скроллу
-
 // Раскидать логику по хукам
 
 const SearchPage = () => {
@@ -55,6 +52,27 @@ const SearchPage = () => {
 
 	const search = useSearch()
 
+	useEffect(() => {
+		document.addEventListener('scroll', scrollHandler);
+
+		return () => {
+			document.removeEventListener('scroll', scrollHandler);
+		};
+	}, []);
+
+	const scrollHandler = (): void => {
+		if (
+			document.documentElement.scrollHeight -
+			(document.documentElement.scrollTop + window.innerHeight) <
+			100
+		) {
+			setOutputSize(prev => prev + 500)
+		}
+	};
+
+	const [outputSize, setOutputSize] = useState(50)
+
+
 	return (
 		<>
 			<Seo
@@ -77,14 +95,16 @@ const SearchPage = () => {
 							<h2>Colors</h2>
 							<div className={styles.colors}>
 								{colorsData &&
-									colorsData.map(color => (
-										<ColorCard
-											color={color}
-											key={color.id}
-											Icon={IconHeart}
-											add
-										/>
-									))}
+									colorsData
+										.slice(0, outputSize)
+										.map(color => (
+											<ColorCard
+												color={color}
+												key={color.id}
+												Icon={IconHeart}
+												add
+											/>
+										))}
 							</div>
 						</div>
 						<div className={styles['schemes-column']}>
@@ -92,6 +112,7 @@ const SearchPage = () => {
 							<div className={styles.schemes}>
 								{schemesData &&
 									schemesData
+										.slice(0, outputSize)
 										.filter(scheme => scheme.colors?.length >= 5)
 										.map(scheme => (
 											<SchemeCard
