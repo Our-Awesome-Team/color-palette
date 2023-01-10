@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
 import MainLayout from './components/Layout/MainLayout';
 import { lazy, Suspense } from 'react';
 import Spinner from './components/UI/Spinner/Spinner';
-import NotFound from './pages/NotFound/NotFound';
 
+const Home = lazy(() => import('./pages/Home/Home'));
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 const History = lazy(() => import('./pages/HistoryPage/HistoryPage'));
 const User = lazy(() => import('./pages/UserPage/UserPage'));
 const Favorites = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
@@ -16,11 +16,9 @@ const App = () => {
 	return (
 		<>
 			<MainLayout>
-				<Routes>
-					<Route path="/" element={<Home />} />
-				</Routes>
 				<Suspense fallback={<Spinner />}>
 					<Routes>
+						<Route path="/" element={<Home />} />
 						<Route path="/signin" element={<Signin />} />
 						<Route path="/signup" element={<Signup />} />
 						<Route path="/favorites" element={<Favorites />} />
