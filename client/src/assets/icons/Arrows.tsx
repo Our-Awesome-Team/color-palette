@@ -1,4 +1,6 @@
-export const IconArrowRightShort = (props: any) => {
+import { memo } from "react";
+
+export const IconArrowRightShort = memo((props: any) => {
     return (
         <svg
             fill="currentColor"
@@ -13,4 +15,4 @@ export const IconArrowRightShort = (props: any) => {
             />
         </svg>
     );
-}
+})

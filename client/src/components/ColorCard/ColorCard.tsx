@@ -3,6 +3,7 @@ import { useAddFavoriteColorMutation, useRemoveFavoriteColorMutation } from '../
 import { Color } from '../../store/favorites/favoritesTypes'
 import { useAppSelector } from '../../store/hooks'
 import styles from './ColorCard.module.scss'
+import { memo } from 'react'
 
 type Props = {
     color: Color
@@ -40,4 +41,4 @@ const ColorCard = ({ color, Icon, add = false }: Props) => {
     )
 }
 
-export default ColorCard
+export default memo(ColorCard)

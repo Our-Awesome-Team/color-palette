@@ -9,6 +9,7 @@ import SkeletonLoader from '../UI/SkeletonLoader';
 import { useAddFavoriteSchemeMutation } from '../../store/favorites/favoritesApi';
 import { Locked } from "../../assets/icons/Locked";
 import { Color, Scheme } from "../../store/favorites/favoritesTypes";
+import { v4 as uuid } from 'uuid';
 
 // Решить проблему дублирования цветов (Важно)
 
@@ -88,10 +89,10 @@ const Generated = () => {
 						containerClassName={styles.colors}
 					/>
 				) : (
-					<div className={styles.colors} data-testid='generated-colors'>
+					<div className={styles.colors} data-test-id='generated-colors'>
 						{generatedScheme?.colors.slice(0, 5).map((color, index) => (
 							<div
-								key={color}
+								key={uuid()}
 								className={styles.color}
 								style={{ backgroundColor: `#${color}` }}
 							>
@@ -104,7 +105,7 @@ const Generated = () => {
 									#{color}
 								</h2>
 								<button
-									className={`${styles.lock} ${lockedColors.map(el => el.color).includes(color) ? styles.locked : ""
+									className={`${styles.lock} ${lockedColors.filter(el => el.index === index).map(el => el.color).includes(color) ? styles.locked : ""
 										} `}
 									onClick={() => lockColor({ color, index })}
 								>
@@ -116,7 +117,7 @@ const Generated = () => {
 					</div>
 				)}
 				<div className={styles.buttons}>
-					<button className={styles.button} onClick={() => generate(lockedColors ? lockedColors.map(el => el.color) : [])}>
+					<button className={styles.button} data-test-id='generate-btn' onClick={() => generate(lockedColors ? lockedColors.map(el => el.color) : [])}>
 						<span>Generate</span>
 						<span>
 							<IconSparkles className={styles.sparkles} />
