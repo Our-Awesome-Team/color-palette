@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout, reset } from '../../store/auth/authSlice';
 import Button from '../UI/Button/Button';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Search from '../UI/Search/Search';
 import { IconHeartOutline } from '../../assets/icons/Heart';
 import { UserCircleOutline } from '../../assets/icons/User';
@@ -11,7 +11,6 @@ import { IconSearch } from '../../assets/icons/Search';
 import { IconHistory } from '../../assets/icons/History';
 import { favoritesApi } from '../../store/favorites/favoritesApi';
 import { historyApi } from '../../store/history/historyApi';
-import cn from 'classnames';
 
 const Header = () => {
 	const { pathname } = useLocation();
@@ -64,9 +63,8 @@ const Header = () => {
 
 	return (
 		<header
-			className={`${styles.header} ${
-				scrollPosition > 0 ? styles.scrolled : ''
-			}`}
+			className={`${styles.header} ${scrollPosition > 0 ? styles.scrolled : ''
+				}`}
 		>
 			<div className={styles.container}>
 				<span className={styles.logo}>
@@ -80,29 +78,19 @@ const Header = () => {
 					{(pathname === '/' ||
 						pathname === '/user' ||
 						pathname === '/favorites') && (
-						<IconSearch className={styles.searchIcon} onClick={show} />
-					)}
-					<Link to="/history">
-						<IconHistory
-							className={cn(styles.history, {
-								[styles.active]: pathname === '/history',
-							})}
-						/>
+							<IconSearch className={styles.searchIcon} onClick={show} />
+						)}
+					<Link to="/history" className={styles.history}>
+						<IconHistory />
 					</Link>
 					{user && (
-						<Link to="/favorites">
-							<IconHeartOutline
-								className={cn(styles.heart, {
-									[styles.active]: pathname === '/favorites',
-								})}
-							/>
+						<Link to="/favorites" className={styles.heart}>
+							<IconHeartOutline />
 						</Link>
 					)}
 					{user && (
-						<Link to="/user">
-							<UserCircleOutline className={cn(styles.user, {
-								[styles.active]: pathname === '/user'
-							})} />
+						<Link to="/user" className={styles.user}>
+							<UserCircleOutline />
 						</Link>
 					)}
 					{user && (

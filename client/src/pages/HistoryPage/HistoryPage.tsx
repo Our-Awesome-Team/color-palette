@@ -15,10 +15,7 @@ const History = () => {
 	const { data: history, isLoading, refetch } = useGetHisotoryQuery()
 
 	useEffect(() => {
-		if (!history) {
-			refetch()
-			console.log('refetch');
-		}
+		if (!history) refetch()
 	}, [])
 
 	const [removeHistory] = useRemoveHistoryMutation()

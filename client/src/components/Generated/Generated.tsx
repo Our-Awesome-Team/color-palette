@@ -11,8 +11,6 @@ import { Locked } from "../../assets/icons/Locked";
 import { Color, Scheme } from "../../store/favorites/favoritesTypes";
 import { v4 as uuid } from 'uuid';
 
-// Решить проблему дублирования цветов (Важно)
-
 const Generated = () => {
 	const { user } = useAppSelector(state => state.auth);
 
@@ -86,7 +84,7 @@ const Generated = () => {
 				{loading ? (
 					<SkeletonLoader
 						count={5}
-						style={{ paddingBottom: '18.5%' }}
+						style={{ paddingBottom: '18.25%' }}
 						containerClassName={styles.colors}
 					/>
 				) : (
