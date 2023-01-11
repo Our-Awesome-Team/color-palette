@@ -66,7 +66,7 @@ const SearchPage = () => {
 			(document.documentElement.scrollTop + window.innerHeight) <
 			100
 		) {
-			setOutputSize(prev => prev + 500)
+			setOutputSize(prev => prev + 50)
 		}
 	};
 
