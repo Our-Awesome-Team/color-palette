@@ -38,12 +38,13 @@ const Generated = () => {
 			<>
 				{loading ? (
 					<SkeletonLoader
+						data-testid='skeleton'
 						count={5}
 						style={{ paddingBottom: '18.25%' }}
 						containerClassName={styles.colors}
 					/>
 				) : (
-					<div className={styles.colors} data-test-id='generated-colors'>
+					<div className={styles.colors} data-testid='generated-colors' data-test-id='generated-colors'>
 						{generatedScheme?.colors.slice(0, 5).map((color, index) => (
 							<div
 								key={uuid()}
