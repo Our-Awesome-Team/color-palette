@@ -1,5 +1,5 @@
 import BrowseColors from "../../components/BrowseColors/BrowseColors";
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom';
 
 describe('BrowseColors component', () => {
