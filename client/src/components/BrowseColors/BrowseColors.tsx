@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import styles from './BrowseColors.module.scss';
 import { IconHeart } from '../../assets/icons/Heart';
 import { IconWiRefresh } from '../../assets/icons/Refresh';
@@ -6,27 +5,12 @@ import ColorCard from '../ColorCard/ColorCard';
 import SkeletonLoader from '../UI/SkeletonLoader';
 import useColorsApi from '../../hooks/useColorsApi';
 import { v4 as uuid } from 'uuid'
+import useScroll from '../../hooks/useScroll';
 
 const BrowseColors = ({ title }: { title: string }) => {
 	const { colors, loading, setLoadingExtra, fetchColors } = useColorsApi()
 
-	useEffect(() => {
-		document.addEventListener('scroll', scrollHandler);
-
-		return () => {
-			document.removeEventListener('scroll', scrollHandler);
-		};
-	}, []);
-
-	const scrollHandler = (): void => {
-		if (
-			document.documentElement.scrollHeight -
-			(document.documentElement.scrollTop + window.innerHeight) <
-			100
-		) {
-			setLoadingExtra(true)
-		}
-	};
+	useScroll(() => setLoadingExtra(true))
 
 	return (
 		<div className={styles.browseColors}>

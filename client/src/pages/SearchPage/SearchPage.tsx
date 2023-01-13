@@ -7,6 +7,7 @@ import SchemeCard from '../../components/SchemeCard/SchemeCard';
 import Seo from '../../utils/Seo/Seo';
 import useSearch from '../../hooks/useSearch';
 import { useRandomColorsAndSchemes } from '../../hooks/useRandomColorsAndSchemes';
+import useScroll from '../../hooks/useScroll';
 
 const SearchPage = () => {
 	const [inputValue, setInputValue] = useState('');
@@ -29,24 +30,8 @@ const SearchPage = () => {
 		setInputValue(e.target.value);
 	};
 
-	useEffect(() => {
-		document.addEventListener('scroll', scrollHandler);
-
-		return () => {
-			document.removeEventListener('scroll', scrollHandler);
-		};
-	}, []);
-
 	const [outputSize, setOutputSize] = useState(50)
-	const scrollHandler = (): void => {
-		if (
-			document.documentElement.scrollHeight -
-			(document.documentElement.scrollTop + window.innerHeight) <
-			100
-		) {
-			setOutputSize(prev => prev + 50)
-		}
-	};
+	useScroll(() => setOutputSize(prev => prev + 50))
 
 	return (
 		<>
