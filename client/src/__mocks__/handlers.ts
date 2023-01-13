@@ -31,4 +31,49 @@ export const handlers = [
       ])
     );
   }),
+  rest.get('https://www.colr.org/json/schemes/random/21', (req, res, ctx) => {
+    return res(
+      ctx.json([
+        {
+          colors: [
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+          ],
+          id: '123',
+          tags: [],
+        },
+        {
+          colors: [
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+          ],
+          id: '456',
+          tags: [],
+        },
+        {
+          colors: [
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+            'ffffff',
+          ],
+          id: '789',
+          tags: [],
+        },
+      ])
+    );
+  }),
 ];

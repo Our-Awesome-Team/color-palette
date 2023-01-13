@@ -3,8 +3,7 @@ import useDebounce from '../../hooks/useDebounce';
 
 describe('useDebounce hook', () => {
     it('Should receive data', async () => {
-        const { result, unmount } = renderHook(() => useDebounce('newString', 500));
+        const { result } = renderHook(() => useDebounce('newString', 500));
         expect(result.current).toBe('newString')
-        unmount()
     });
 });

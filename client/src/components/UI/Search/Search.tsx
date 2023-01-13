@@ -1,63 +1,39 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import axios from "axios";
 import styles from './Search.module.scss';
-import { Color, Scheme } from '../../../store/favorites/favoritesTypes';
 import { Link, useSearchParams } from 'react-router-dom';
-import useDebounce from '../../../hooks/useDebounce';
 import { colourIsLight, hexToRgb } from '../../../utils/colorUtils';
 import { useAppSelector } from '../../../store/hooks';
 import useLocalStorage from '../../../hooks/useLocalStorage';
 import HistoryItem from '../../HistoryItem/HistoryItem';
-import { useSearch } from '../../../hooks/useSearch';
+import useSearch from '../../../hooks/useSearch';
 import { IHistoryItem } from '../../../store/history/historyTypes';
 import { useGetHisotoryQuery } from '../../../store/history/historyApi';
-
-// Раскидать логику по хукам
+import { useRandomColorsAndSchemes } from '../../../hooks/useRandomColorsAndSchemes';
 
 type SearchProps = {
 	fullSize?: boolean
 }
 
 const Search = ({ fullSize }: SearchProps) => {
-	const [inputValue, setInputValue] = useState('');
-	const debouncedInput = useDebounce(inputValue, 400);
-	const [showResults, setShowResults] = useState(false)
-	const [colorsData, setColorsData] = useState<Color[]>([]);
-	const [schemesData, setSchemesData] = useState<Scheme[]>([])
-	const [searchParams, setSearchParams] = useSearchParams({});
-
 	const { user } = useAppSelector(state => state.auth)
+
+	const [inputValue, setInputValue] = useState('');
+	const [showResults, setShowResults] = useState(false);
+
+	const [searchParams, setSearchParams] = useSearchParams({});
+	const [localHistory, setLocalHistory] = useLocalStorage('history', [])
+	const { colorsData, schemesData } = useRandomColorsAndSchemes(inputValue)
+	const { data: history } = useGetHisotoryQuery()
+	const search = useSearch()
 
 	useEffect(() => {
 		setSearchParams(inputValue && { query: inputValue })
 	}, [inputValue])
 
-	useEffect(() => {
-		const fetch = async (query: string) => {
-			if (query.trim().split(' ').length === 1) {
-				const response = await axios.get(`https://www.colr.org/json/tag/${query.trim().toLowerCase()}`);
-				setColorsData(response.data.colors);
-				setSchemesData(response.data.schemes);
-			} else {
-				const response = await axios.get(`https://www.colr.org/json/tags/${query.trim().toLowerCase().split(' ').join(',')}`);
-				setColorsData(response.data.colors);
-				setSchemesData(response.data.schemes);
-			}
-		}
-		if (inputValue.length !== 0) fetch(inputValue)
-	}, [debouncedInput])
-
 
 	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
 	};
-
-
-	const { data: history } = useGetHisotoryQuery()
-
-	const [localHistory, setLocalHistory] = useLocalStorage('history', [])
-
-	const search = useSearch()
 
 	const openSuggestion = () => {
 		document.body.style.overflow = 'hidden'

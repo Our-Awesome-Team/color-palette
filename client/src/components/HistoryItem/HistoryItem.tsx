@@ -1,7 +1,7 @@
 import { IHistoryItem } from "../../store/history/historyTypes"
 import styles from './HistoryItem.module.scss'
 import { IconArrowRightShort } from "../../assets/icons/Arrows"
-import { useSearch } from "../../hooks/useSearch"
+import useSearch from "../../hooks/useSearch"
 
 type HistoryItemProps = {
     query: IHistoryItem

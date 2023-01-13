@@ -1,56 +1,33 @@
 import { useSearchParams } from 'react-router-dom';
 import styles from './SearchPage.module.scss';
 import { ChangeEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import useDebounce from '../../hooks/useDebounce';
-import { Color, Scheme } from '../../store/favorites/favoritesTypes';
-import axios from 'axios';
 import ColorCard from '../../components/ColorCard/ColorCard';
 import { IconHeart } from '../../assets/icons/Heart';
 import SchemeCard from '../../components/SchemeCard/SchemeCard';
 import Seo from '../../utils/Seo/Seo';
-import { useSearch } from '../../hooks/useSearch';
-
-// Раскидать логику по хукам
+import useSearch from '../../hooks/useSearch';
+import { useRandomColorsAndSchemes } from '../../hooks/useRandomColorsAndSchemes';
 
 const SearchPage = () => {
-	const inputRef = useRef<HTMLInputElement>(null);
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [inputValue, setInputValue] = useState('');
 
+	const [searchParams, setSearchParams] = useSearchParams();
+	const { colorsData, schemesData } = useRandomColorsAndSchemes(inputValue);
+	const search = useSearch();
+
+	const inputRef = useRef<HTMLInputElement>(null);
 	useLayoutEffect(() => {
 		setInputValue(searchParams.get('query') ? searchParams.get('query')! : '');
 		inputRef?.current?.focus();
 	}, []);
 
-	const [inputValue, setInputValue] = useState('');
-	const debouncedInput = useDebounce(inputValue, 400);
-
 	useEffect(() => {
 		setSearchParams(inputValue && { query: inputValue });
 	}, [inputValue]);
 
-	const [colorsData, setColorsData] = useState<Color[]>([]);
-	const [schemesData, setSchemesData] = useState<Scheme[]>([]);
-
-	useEffect(() => {
-		const fetch = async (query: string) => {
-			if (query.trim().split(' ').length === 1) {
-				const response = await axios.get(`https://www.colr.org/json/tag/${query.trim().toLowerCase()}`);
-				setColorsData(response.data.colors);
-				setSchemesData(response.data.schemes);
-			} else {
-				const response = await axios.get(`https://www.colr.org/json/tags/${query.trim().toLowerCase().split(' ').join(',')}`);
-				setColorsData(response.data.colors);
-				setSchemesData(response.data.schemes);
-			}
-		}
-		fetch(inputValue)
-	}, [debouncedInput]);
-
 	const changeInput = (e: ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
 	};
-
-	const search = useSearch()
 
 	useEffect(() => {
 		document.addEventListener('scroll', scrollHandler);
@@ -60,6 +37,7 @@ const SearchPage = () => {
 		};
 	}, []);
 
+	const [outputSize, setOutputSize] = useState(50)
 	const scrollHandler = (): void => {
 		if (
 			document.documentElement.scrollHeight -
@@ -69,9 +47,6 @@ const SearchPage = () => {
 			setOutputSize(prev => prev + 50)
 		}
 	};
-
-	const [outputSize, setOutputSize] = useState(50)
-
 
 	return (
 		<>

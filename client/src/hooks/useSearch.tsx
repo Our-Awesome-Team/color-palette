@@ -1,11 +1,11 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { useAppSelector } from "../store/hooks";
 import useLocalStorage from "./useLocalStorage";
 import { useAddHistoryItemMutation } from "../store/history/historyApi";
 
 
-export const useSearch = () => {
+const useSearch = () => {
     const navigate = useNavigate()
     const [localHistory, setLocalHistory] = useLocalStorage('history', [])
     const { user } = useAppSelector(state => state.auth)
@@ -29,3 +29,5 @@ export const useSearch = () => {
 
     return search
 }
+
+export default useSearch
