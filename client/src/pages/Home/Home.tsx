@@ -2,6 +2,7 @@ import Generated from '../../components/Generated/Generated';
 import BrowseColors from '../../components/BrowseColors/BrowseColors';
 import styles from './Home.module.scss';
 import Seo from '../../utils/Seo/Seo';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
 
 const Home = () => {
 	return (
@@ -12,8 +13,12 @@ const Home = () => {
 			/>
 			<section className={styles.home}>
 				<div className="container">
-					<Generated />
-					<BrowseColors title="Browse colors" />
+					<ErrorBoundary>
+						<Generated />
+					</ErrorBoundary>
+					<ErrorBoundary>
+						<BrowseColors title="Browse colors" />
+					</ErrorBoundary>
 				</div>
 			</section>
 		</>
