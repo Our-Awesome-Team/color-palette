@@ -2,7 +2,7 @@
   "name": "our-awesome-project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Our-Awesome-Team.github.io/color-palette",
+  "homepage": "https://our-awesome-team.github.io",
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
     "@reduxjs/toolkit": "^1.9.1",
