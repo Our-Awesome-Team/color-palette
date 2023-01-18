@@ -40,7 +40,7 @@ const SelectedImageComponent = ({
     const uploadFile = async () => {
         let data = new FormData();
         data.append('image', imageFile as Blob);
-        await axios.post('http://localhost:5000/api/upload', data, {
+        await axios.post('https://color-palette-b4uwktlqb-our-awesome-team.vercel.app/api/upload', data, {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
                 'Content-Type': 'multipart/form-data'

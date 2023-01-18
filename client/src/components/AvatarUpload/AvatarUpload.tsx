@@ -76,7 +76,7 @@ const AvatarUpload = () => {
     useEffect(() => {
         const fetchAvatar = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/upload/files/${user?.email}.jpg`,
+                const res = await axios.get(`https://color-palette-b4uwktlqb-our-awesome-team.vercel.app/api/upload/files/${user?.email}.jpg`,
                     {
                         headers: {
                             Authorization: `Bearer ${user?.token}`,
@@ -93,7 +93,7 @@ const AvatarUpload = () => {
 
     const deleteAvatar = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/upload/files/${user?.email}.jpg`, {
+            await axios.delete(`https://color-palette-b4uwktlqb-our-awesome-team.vercel.app/api/upload/files/${user?.email}.jpg`, {
                 headers: {
                     Authorization: `Bearer ${user?.token}`,
                 }

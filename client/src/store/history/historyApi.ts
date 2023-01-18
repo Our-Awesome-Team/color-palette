@@ -4,7 +4,7 @@ import { IHistoryItem } from './historyTypes';
 
 export const historyApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api',
+    baseUrl: 'https://color-palette-b4uwktlqb-our-awesome-team.vercel.app/api',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.user?.token;
       if (token) {

@@ -14,7 +14,7 @@ const AvatarImage = ({ error, file, imgRef, avatarFromServer, ...props }: ImageP
 
     const { user } = useAppSelector(state => state.auth)
     useEffect(() => {
-        if (avatarFromServer && !file) setmemoizedUrl(`http://localhost:5000/api/upload/files/${user?.email}.jpg`);
+        if (avatarFromServer && !file) setmemoizedUrl(`https://color-palette-b4uwktlqb-our-awesome-team.vercel.app/api/upload/files/${user?.email}.jpg`);
         if (file) {
             setmemoizedUrl(URL.createObjectURL(file));
         }
